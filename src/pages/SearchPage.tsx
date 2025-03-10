@@ -1,0 +1,222 @@
+import React, { useState } from 'react';
+import { 
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  InputAdornment,
+  Link,
+  TextField,
+  Toolbar,
+  Typography,
+  CircularProgress
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
+
+const SearchPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const darkBlue = '#0A1929';
+  const lightBlue = '#1E3A8A';
+
+  const handleSearch = async () => {
+    if (!searchTerm) return;
+    setLoading(true);
+    try {
+      const response = await axios.get(`/api/patents/getSummary/${searchTerm}`);
+      setResult(response.data);
+    } catch (error) {
+      setResult({ error: 'Failed to fetch patent data' });
+    }
+    setLoading(false);
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        bgcolor: darkBlue,
+        color: 'white',
+      }}
+    >
+      <AppBar position="static" sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          </Typography>
+          <IconButton sx={{ p: 0 }}>
+            <Avatar alt="User Profile" />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <Container 
+        component="main" 
+        maxWidth="md" 
+        sx={{ 
+          flexGrow: 1,
+          display: 'flex', 
+          flexDirection: 'column',
+          justifyContent: result ? 'flex-start' : 'center',
+          alignItems: 'center',
+          py: 8
+        }}
+      >
+        {!result && (
+          <Typography
+            variant="h2"
+            component="h1"
+            sx={{
+              fontWeight: 'bold',
+              mb: 4,
+              background: `linear-gradient(45deg, #4F83CC 30%, #86B9F5 90%)`,
+              backgroundClip: 'text',
+              textFillColor: 'transparent',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            PatentPartner
+          </Typography>
+        )}
+
+        <Box sx={{ width: '100%', maxWidth: 600, position: 'relative', mb: result ? 4 : 7 }}>
+          <TextField
+            fullWidth
+            placeholder="Enter keywords or patent code..."
+            variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: 'white' }} />
+                </InputAdornment>
+              ),
+              sx: { 
+                bgcolor: "#112240",
+                borderRadius: 2,
+                color: 'white',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#112240',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255, 255, 255, 0.3)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(255, 255, 255, 0.1)',
+                },
+                '&::placeholder': {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  opacity: 1,
+                },
+              }
+            }}
+            sx={{
+              '& .MuiInputBase-input': {
+                color: 'white',
+              }
+            }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSearch}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              bottom: 8,
+              bgcolor: '#2D6CDF',
+              '&:hover': {
+                bgcolor: '#3D7CEF',
+              }
+            }}
+          >
+            Search
+          </Button>
+        </Box>
+
+        {loading && 
+        <>
+          <CircularProgress sx={{ color: 'white', mt: 4 }} />
+          <Typography>Writing...</Typography>
+        </>
+        }
+
+        {result && (
+          <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4 }}>
+            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
+            {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
+            <ReactMarkdown>{result.summary || result.error}</ReactMarkdown>
+          </Box>
+        )}
+      </Container>
+    
+    </Box>
+  );
+};
+
+export default SearchPage;
+
+// import React from "react";
+// import { Container, TextField, InputAdornment, IconButton, Typography, Box, AppBar, Toolbar, Avatar, Link } from "@mui/material";
+// import SearchIcon from "@mui/icons-material/Search";
+
+// const SearchPage = () => {
+//   return (
+//     <Box sx={{ backgroundColor: "#0A192F", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column"}}>
+//       {/* Header */}
+//       <AppBar position="static" sx={{ backgroundColor: "#112240" }}>
+//         <Toolbar sx={{ justifyContent: "flex-end" }}>
+//           <Avatar alt="User Avatar" sx={{ bgcolor: "#64ffda" }} />
+//         </Toolbar>
+//       </AppBar>
+      
+//       {/* Main Content */}
+//       <Container sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+//         <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#64ffda" }}>
+//           PatentPal
+//         </Typography>
+//         <TextField
+//           variant="outlined"
+//           placeholder="Enter keywords or patent code..."
+//           sx={{
+//             width: "50%",
+//             backgroundColor: "#112240",
+//             borderRadius: "5px",
+//             input: { color: "#FFFFFF" },
+//           }}
+//           InputProps={{
+//             endAdornment: (
+//               <InputAdornment position="end">
+//                 <IconButton sx={{ color: "#64ffda" }}>
+//                   <SearchIcon />
+//                 </IconButton>
+//               </InputAdornment>
+//             ),
+//           }}
+//         />
+//       </Container>
+
+//       {/* Footer */}
+//       <Box component="footer" sx={{ backgroundColor: "#112240", padding: "16px", textAlign: "center" }}>
+//         <Typography variant="body2" color="#64ffda">
+//           <Link href="/privacy" color="inherit" underline="hover">Privacy Policy</Link> | 
+//           <Link href="/terms" color="inherit" underline="hover"> Terms of Use</Link>
+//         </Typography>
+//         <Typography variant="body2" color="#FFFFFF">
+//           &copy; {new Date().getFullYear()} PatentPal. All rights reserved.
+//         </Typography>
+//       </Box>
+//     </Box>
+//   );
+// };
+
+// export default SearchPage;
