@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Link, Box, Container } from '@mui/material';
+import axios from "axios";
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -8,10 +9,21 @@ const LoginPage = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Logging in with:', credentials);
-    // Add authentication logic here
+    
+    try {
+      const response = await axios.post("/api/auth/login", { "username": credentials.username, "password": credentials.password });
+      console.log("Login successful:", response.data);
+      // setLoggedIn(true);
+      window.location.href = response.data.redirectUrl;
+    } catch (err) {
+      console.log(err);
+      console.log("Login Failed!");
+      // setError("Invalid credentials");
+    }
+
   };
 
   return (

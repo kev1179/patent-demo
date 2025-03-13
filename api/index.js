@@ -15,8 +15,8 @@ app.use(express.json());
 let options = {
     host: process.env.MYSQL_HOST, // Host name for database connection.
     user: process.env.MYSQL_USER, // Database user.
-    password: process.env.PASSWORD, // Password for the above database user.
-    database: process.env.DATABASE, // Database name
+    password: process.env.MYSQL_PASSWORD, // Password for the above database user.
+    database: process.env.MYSQL_DATABASE, // Database name
 };
 
 let connection = mysql.createConnection(options);

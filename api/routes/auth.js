@@ -44,6 +44,7 @@ const router = express.Router();
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
     const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
 
+    console.log(rows[0]);
     if(rows.length == 0)
       return cb(null, false, { message: 'Incorrect username or password.' });
 
@@ -51,6 +52,7 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
       if (!crypto.timingSafeEqual(rows[0].hashed_password, hashedPassword)) {
         return cb(null, false, { message: 'Incorrect username or password.' });
       }
+      
       return cb(null, rows[0]);
     });
 }));
@@ -77,9 +79,10 @@ passport.deserializeUser(function(user, cb) {
 router.post('/login', passport.authenticate('local'), (req, res) => { 
 {
     if(req.isAuthenticated())
-        res.json({ success: true, redirectUrl: '/dashboard' });
+      res.json({ success: true, redirectUrl: '/search' });
+
     else
-        res.json({ success: false, redirectUrl: '/' });
+        res.json({ success: false, redirectUrl: '/login' });
 }});
 
 router.post('/signup', (async function(req, res, next) {
