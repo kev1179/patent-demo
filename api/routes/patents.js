@@ -8,7 +8,7 @@ const router = express.Router();
 // Load environment variables
 require("dotenv").config();
 const OPENAI_API_KEY = process.env.OPENAI_KEY;
-const PATENTSVIEW_API_KEY = process.env.PATENTSVIEW_KEY;
+// const PATENTSVIEW_API_KEY = process.env.PATENTSVIEW_KEY;
 
 // Initialize OpenAI client
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
@@ -125,7 +125,7 @@ router.get('/getSummary/:patentId', async (req, res) => {
         // Send the summary to OpenAI API for processing
         const aiResponse = await openai.chat.completions.create({
             model: "gpt-4o-mini",
-            messages: [{ role: "system", content: "Summarize this patent in simple terms:" },
+            messages: [{ role: "system", content: "Summarize this patent in technical terms:" },
                        { role: "user", content: optimizedSummary }],
             max_tokens: 1000
         });
