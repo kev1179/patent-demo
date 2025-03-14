@@ -8,6 +8,7 @@ import TermsOfUse from './pages/TermsOfUse';
 import LandingPage from './pages/LandingPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import MainLayout from './MainLayout';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
         {/* Apply MainLayout to all pages */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LandingPage/>} />
-          <Route path="search" element={<SearchPage />} />
+          <Route element={<PrivateRoute/>}>
+            <Route path="search" element={<SearchPage />} />
+          </Route>
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="terms" element={<TermsOfUse />} />
           <Route path="login" element={<LoginPage/>}></Route>

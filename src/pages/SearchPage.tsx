@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   AppBar,
   Avatar,
@@ -11,19 +11,38 @@ import {
   TextField,
   Toolbar,
   Typography,
-  CircularProgress
+  CircularProgress,
+  Menu,
+  MenuItem,
+  ListItemIcon
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import { useNavigate } from 'react-router-dom';
 
 const SearchPage = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [paid, setPaid] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const darkBlue = '#0A1929';
   const lightBlue = '#1E3A8A';
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+      setAnchorEl(null);
+  };
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -35,6 +54,17 @@ const SearchPage = () => {
       setResult({ error: 'Failed to fetch patent data' });
     }
     setLoading(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+        await axios.post('/api/auth/logout', {}, { withCredentials: true });
+        navigate('/login'); // Redirect to the login page after logout
+    } catch (error) {
+        console.error('Logout failed:', error);
+    } finally {
+        handleClose();
+    }
   };
 
   return (
@@ -51,11 +81,32 @@ const SearchPage = () => {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           </Typography>
-          <IconButton sx={{ p: 0 }}>
+          <IconButton sx={{ p: 0 }} onClick={handleClick}>
             <Avatar alt="User Profile" />
           </IconButton>
         </Toolbar>
       </AppBar>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <MenuItem onClick={handleClose}>
+              <ListItemIcon sx={{ color: '#FFFFFF' }}>
+                  <SettingsIcon />
+              </ListItemIcon>
+              Settings
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>
+              <ListItemIcon sx={{ color: 'red' }}>
+                  <LogoutIcon />
+              </ListItemIcon>
+              Logout
+          </MenuItem>
+        </Menu>
 
       <Container 
         component="main" 
