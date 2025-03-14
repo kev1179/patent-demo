@@ -28,8 +28,7 @@ const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [paid, setPaid] = useState(true);
+  const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -66,6 +65,19 @@ const SearchPage = () => {
         handleClose();
     }
   };
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+        try {
+            const response = await axios.get('/api/auth/getUsername', { withCredentials: true });
+            setUsername(response.data.username); // Assuming the API returns { username: "JohnDoe" }
+        } catch (error) {
+            console.error('Failed to fetch username:', error);
+        }
+    };
+
+    fetchUsername();
+}, []);
 
   return (
     <Box
@@ -193,6 +205,8 @@ const SearchPage = () => {
             Search
           </Button>
         </Box>
+
+        <Typography>Welcome back {username}!</Typography>
 
         {loading && 
         <>
