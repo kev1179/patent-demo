@@ -17,6 +17,7 @@ import {
   ListItemIcon
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
@@ -105,19 +106,31 @@ const SearchPage = () => {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        sx={{textAlign: 'center'}}
         >
+          <Typography>{username}</Typography>
+
+          <MenuItem onClick={handleClose}>
+              <ListItemIcon sx={{ color: '#FFFFFF' }}>
+                  <PersonIcon />
+              </ListItemIcon>
+              Account
+          </MenuItem>
+
           <MenuItem onClick={handleClose}>
               <ListItemIcon sx={{ color: '#FFFFFF' }}>
                   <SettingsIcon />
               </ListItemIcon>
               Settings
           </MenuItem>
+
           <MenuItem onClick={handleLogout}>
               <ListItemIcon sx={{ color: 'red' }}>
                   <LogoutIcon />
               </ListItemIcon>
               Logout
           </MenuItem>
+
         </Menu>
 
       <Container 
@@ -205,8 +218,6 @@ const SearchPage = () => {
             Search
           </Button>
         </Box>
-
-        <Typography>Welcome back {username}!</Typography>
 
         {loading && 
         <>
