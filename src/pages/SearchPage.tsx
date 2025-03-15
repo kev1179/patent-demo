@@ -234,10 +234,12 @@ const SearchPage = () => {
         }
 
         {result && (
-          <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4 }}>
+          <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
             {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
             <ReactMarkdown>{result.summary || result.error}</ReactMarkdown>
+
+            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Claims Visualized:</Typography>
             <GraphComponent nodes={graphNodes} edges={graphEdges}></GraphComponent>
           </Box>
         )}

@@ -28,7 +28,10 @@ const GraphComponent = ({ nodes, edges }) => {
             edges: {
                 color: '#4A90E2',
                 width: 2,
-                smooth: true
+                smooth: true,
+                arrows: {
+                    to: { enabled: true, scaleFactor: 1 }
+                }
             },
             physics: { enabled: true },
             interaction: { hover: true }
@@ -48,10 +51,9 @@ const GraphComponent = ({ nodes, edges }) => {
     }, [nodes, edges]);
 
     return (
-        <Box className="flex flex-col items-center gap-4 p-4" sx={{ backgroundColor: '#0A1C2E', minHeight: '100vh', color: 'white' }}>
-            <Box ref={containerRef} sx={{ width: '600px', height: '400px', border: '1px solid #4A90E2', borderRadius: '12px' }} />
+        <Box className="flex flex-col items-center gap-4 p-4" sx={{ backgroundColor: '#0A1C2E', color: 'white' }}>
             {selectedNode && (
-                <Card sx={{ width: '320px', backgroundColor: '#1B3A57', border: '1px solid #4A90E2' }}>
+                <Card sx={{ backgroundColor: '#1B3A57', border: '1px solid #4A90E2' }}>
                     <CardContent>
                         <Typography variant="h6" fontWeight="bold">
                             {selectedNode.label}
@@ -60,6 +62,7 @@ const GraphComponent = ({ nodes, edges }) => {
                     </CardContent>
                 </Card>
             )}
+            <Box ref={containerRef} sx={{ height: '600px', border: '1px solid #4A90E2', borderRadius: '12px' }} />
         </Box>
     );
 };

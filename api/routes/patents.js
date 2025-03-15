@@ -70,13 +70,15 @@ function getClaimID(claimNumber)
 function getParentClaim(claimText)
 {
     let claimTokens = claimText.split(" ");
-    let parent = "root";
+    let parent = "0";
 
     for(let i = 0; i < claimTokens.length; i++)
     {
         if(claimTokens[i] === 'claim' && i != claimTokens - 1)
         {
-            parent = claimTokens[i+1];
+            const currentToken = claimTokens[i + 1];
+            const punctuationRemoved = currentToken.replace(/\D/g, "");
+            parent = punctuationRemoved;
         }
     }
 
@@ -188,6 +190,7 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
         let claimNumber = 1;
         let edgeList = [];
         claimList = [];
+        claimList.push({id: 0, label: patentId, info: "Patent ID"});
 
         while(claimNumber < 100)
         {
