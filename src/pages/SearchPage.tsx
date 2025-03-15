@@ -20,6 +20,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import GraphComponent from '../components/GraphComponent';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +29,8 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState(null);
+  const [graphNodes, setGraphNodes] = useState(null);
+  const [graphEdges, setGraphEdges] = useState(null);
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
@@ -48,8 +51,12 @@ const SearchPage = () => {
     if (!searchTerm) return;
     setLoading(true);
     try {
-      const response = await axios.get(`/api/patents/getSummary/${searchTerm}`);
-      setResult(response.data);
+      const summaryResponse = await axios.get(`/api/patents/getSummary/${searchTerm}`);
+      const graphResponse = await axios.get(`/api/patents/getClaimGraph/${searchTerm}`);
+      console.log(graphResponse);
+      setResult(summaryResponse.data);
+      setGraphNodes(graphResponse.data.claimList);
+      setGraphEdges(graphResponse.data.edgeList);
     } catch (error) {
       setResult({ error: 'Failed to fetch patent data' });
     }
@@ -231,6 +238,7 @@ const SearchPage = () => {
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
             {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
             <ReactMarkdown>{result.summary || result.error}</ReactMarkdown>
+            <GraphComponent nodes={graphNodes} edges={graphEdges}></GraphComponent>
           </Box>
         )}
       </Container>

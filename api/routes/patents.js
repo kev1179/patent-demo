@@ -10,6 +10,13 @@ require("dotenv").config();
 const OPENAI_API_KEY = process.env.OPENAI_KEY;
 // const PATENTSVIEW_API_KEY = process.env.PATENTSVIEW_KEY;
 
+const isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.status(401).json({ error: 'Unauthorized' });
+  };
+
 // Initialize OpenAI client
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
@@ -46,7 +53,37 @@ function optimizeSummary(summary)
     return summary;
 }
 
-router.get("/getSummary", async (req, res) => {
+function getClaimNumber(claimString)
+{
+    return Number(claimString.substring(0, 4));
+}
+
+function getClaimID(claimNumber)
+{
+    let prefix = 'CLM-';
+    let body = String(claimNumber).padStart(5, '0');
+
+
+    return prefix + body;
+}
+
+function getParentClaim(claimText)
+{
+    let claimTokens = claimText.split(" ");
+    let parent = "root";
+
+    for(let i = 0; i < claimTokens.length; i++)
+    {
+        if(claimTokens[i] === 'claim' && i != claimTokens - 1)
+        {
+            parent = claimTokens[i+1];
+        }
+    }
+
+    return parent;
+}
+
+router.get("/getSummary", isAuthenticated, async (req, res) => {
     try {
         const patentId = req.query.patent_id;
         if (!patentId) {
@@ -103,7 +140,7 @@ router.get("/getSummary", async (req, res) => {
 });
 
 
-router.get('/getSummary/:patentId', async (req, res) => {
+router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
     const { patentId } = req.params;
     const url = `https://patents.google.com/patent/${patentId}`;
     
@@ -133,6 +170,44 @@ router.get('/getSummary/:patentId', async (req, res) => {
         const aiSummary = aiResponse.choices[0].message.content;
 
         res.json({ patent_id: patentId, summary: aiSummary });
+
+    } catch (error) {
+        console.error('Error fetching patent:', error.message);
+        res.status(500).json({ error: 'Failed to fetch patent data' });
+    }
+});
+
+router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
+    const { patentId } = req.params;
+    const url = `https://patents.google.com/patent/${patentId}`;
+    
+    try {
+        const response = await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        const $ = cheerio.load(response.data);
+
+        let claimNumber = 1;
+        let edgeList = [];
+        claimList = [];
+
+        while(claimNumber < 100)
+        {
+            let claimID = getClaimID(claimNumber);
+            let text = $('#' + claimID).text().trim();
+
+            if(!text)
+            {
+                claimNumber++;
+                continue;
+            }
+
+            claimList.push({id: claimNumber, label: String(claimNumber), info: text});
+            let parent = getParentClaim(text);
+            edgeList.push({from: parent, to: String(claimNumber)});
+
+            claimNumber++;
+        }
+
+        res.json({claimList: claimList, edgeList: edgeList});
 
     } catch (error) {
         console.error('Error fetching patent:', error.message);
