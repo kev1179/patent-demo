@@ -15,15 +15,8 @@ const GraphComponent = ({ nodes, edges }) => {
             nodes: { 
                 shape: 'dot',
                 size: 20,
-                color: {
-                    border: '#4A90E2',
-                    background: '#1B3A57',
-                    highlight: {
-                        border: '#4A90E2',
-                        background: '#295E8F'
-                    }
-                },
-                font: { color: '#ffffff' }
+                font: { color: '#ffffff' },
+                shadow: true,
             },
             edges: {
                 color: '#4A90E2',
@@ -53,7 +46,7 @@ const GraphComponent = ({ nodes, edges }) => {
     return (
         <Box className="flex flex-col items-center gap-4 p-4" sx={{ backgroundColor: '#0A1C2E', color: 'white' }}>
             {selectedNode && (
-                <Card sx={{ backgroundColor: '#1B3A57', border: '1px solid #4A90E2' }}>
+                <Card sx={{ backgroundColor: '#1B3A57', border: '1px solid #4A90E2', mb: 1}}>
                     <CardContent>
                         <Typography variant="h6" fontWeight="bold">
                             {selectedNode.label}
@@ -68,5 +61,3 @@ const GraphComponent = ({ nodes, edges }) => {
 };
 
 export default GraphComponent;
-
-

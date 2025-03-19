@@ -187,10 +187,14 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
         const response = await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         const $ = cheerio.load(response.data);
 
+        let rootColor = {border: '#4CAF50', background: '#1E5631', highlight: {border: '#4CAF50', background: '#3A8E3A'}};
+        let independentColor = {border: '#E24A4A', background: '#8B2F3E', highlight: {border: '#E24A4A', background: '#B34343'}};
+        let dependentColor = {border: '#4A90E2', background: '#1B3A57', highlight: {border: '#4A90E2', background: '#295E8F'}};
+
         let claimNumber = 1;
         let edgeList = [];
         claimList = [];
-        claimList.push({id: 0, label: patentId, info: "Patent ID"});
+        claimList.push({id: 0, label: patentId, info: "Patent ID", color: rootColor});
 
         while(claimNumber < 100)
         {
@@ -202,9 +206,16 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
                 claimNumber++;
                 continue;
             }
-
-            claimList.push({id: claimNumber, label: String(claimNumber), info: text});
+            
             let parent = getParentClaim(text);
+
+            if(parent == 0)
+            {
+                claimList.push({id: claimNumber, label: String(claimNumber), info: text, color: independentColor});
+            }
+            else
+                claimList.push({id: claimNumber, label: String(claimNumber), info: text, color: dependentColor});
+
             edgeList.push({from: parent, to: String(claimNumber)});
 
             claimNumber++;
