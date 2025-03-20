@@ -54,10 +54,15 @@ const SearchPage = () => {
     try {
       const summaryResponse = await axios.get(`/api/patents/getSummary/${searchTerm}`);
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${searchTerm}`);
-      console.log(graphResponse);
+
       setResult(summaryResponse.data);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
+
+      const saveResult = await axios.post("/api/patents/saveResult", 
+        { response: result.summary, patentid: searchTerm},
+        { withCredentials: true });
+
     } catch (error) {
       setResult({ error: 'Failed to fetch patent data' });
     }

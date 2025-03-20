@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const cheerio = require('cheerio');
+const mysql = require('mysql2');
 const { OpenAI } = require("openai");
 
 const router = express.Router();
@@ -9,6 +10,14 @@ const router = express.Router();
 require("dotenv").config();
 const OPENAI_API_KEY = process.env.OPENAI_KEY;
 // const PATENTSVIEW_API_KEY = process.env.PATENTSVIEW_KEY;
+
+const pool = mysql.createPool
+({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+}).promise();
 
 const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -228,5 +237,48 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch patent data' });
     }
 });
+
+router.post('/saveResult', isAuthenticated, async (req, res) => {
+  try {
+
+    let userid = req.user.id;
+    const timestamp = new Date().getTime();
+    let response = req.body.response;
+    let patentid = req.body.patentid;
+
+    const [rows] = await pool.query('INSERT INTO searches (userid, timestamp, response, patentid) VALUES (?, ?, ?, ?)', [
+    userid,
+    timestamp,
+    response,
+    patentid
+    ]);
+
+    res.json({message: "Success!"})
+  }
+
+  catch(error)
+  {
+      res.json({errorMessage: error});
+  }
+}));
+
+router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
+  try {
+
+    let userid = req.user.id;
+
+    const [rows] = await pool.query('select patentid from searches where userid = ?', [
+      userid
+    ]);
+
+    console.log(rows);
+    res.json({recentSearches: rows})
+  }
+
+  catch(error)
+  {
+      res.json({errorMessage: error});
+  }
+}));
 
 module.exports = router;

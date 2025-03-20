@@ -86,38 +86,38 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 }});
 
 router.post('/signup', (async function(req, res, next) {
-try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [req.body.username]);
+  try {
+      const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [req.body.username]);
 
-    if (rows.length > 0) {
-        return res.status(400).json({ error: "Username already exists" });
-    }
+      if (rows.length > 0) {
+          return res.status(400).json({ error: "Username already exists" });
+      }
 
-    let salt = crypto.randomBytes(16);
-    const userID = await generateUniqueUserId();
+      let salt = crypto.randomBytes(16);
+      const userID = await generateUniqueUserId();
 
-    const date = new Date().getTime();
+      const date = new Date().getTime();
 
-    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword) {
-        if (err) { return next(err); }
+      crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword) {
+          if (err) { return next(err); }
 
-        const [rows] = await pool.query('INSERT INTO users (userid, username, date_created, hashed_password, salt) VALUES (?, ?, ?, ?, ?)', [
-        userID,
-        req.body.username,
-        date,
-        hashedPassword,
-        salt
-        ]);
-    });
+          const [rows] = await pool.query('INSERT INTO users (userid, username, date_created, hashed_password, salt) VALUES (?, ?, ?, ?, ?)', [
+          userID,
+          req.body.username,
+          date,
+          hashedPassword,
+          salt
+          ]);
+      });
 
-    res.json({message: "Success!"})
-}
+      res.json({message: "Success!"})
+  }
 
-catch(error)
-{
-    res.json({errorMessage: error});
-}
-  }));
+  catch(error)
+  {
+      res.json({errorMessage: error});
+  }
+}));
 
 router.post('/logout', function(req, res, next) {
   req.logout(function(err) {
