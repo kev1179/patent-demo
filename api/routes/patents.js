@@ -267,11 +267,32 @@ router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
 
     let userid = req.user.id;
 
-    const [rows] = await pool.query('select patentid from searches where userid = ? order by timestamp desc', [
+    const [rows] = await pool.query('select patentid, timestamp from searches where userid = ? order by timestamp desc', [
       userid
     ]);
 
     res.json({recentSearches: rows})
+  }
+
+  catch(error)
+  {
+      res.json({errorMessage: error});
+  }
+});
+
+router.get('/getSearch/:timestamp', isAuthenticated, async (req, res) => {
+  try {
+
+    let userid = req.user.id;
+    let { timestamp } = req.params;
+    
+    const [rows] = await pool.query('select response from searches where userid = ? and timestamp = ?', [
+      userid,
+      timestamp
+    ]);
+
+    // Will return {response: "blah blah blah"}
+    res.json({searchResult: rows[0]})
   }
 
   catch(error)

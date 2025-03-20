@@ -9,6 +9,7 @@ import LandingPage from './pages/LandingPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import MainLayout from './MainLayout';
 import PrivateRoute from './components/PrivateRoute';
+import SearchResults from './pages/SearchResults';
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
           <Route index element={<LandingPage/>} />
           <Route element={<PrivateRoute/>}>
             <Route path="search" element={<SearchPage />} />
+          </Route>
+          <Route element={<PrivateRoute/>}>
+            <Route path="/searchResults/:patentid/:timestamp/" element={<SearchResults />} />
           </Route>
           <Route path="privacy" element={<PrivacyPolicy />} />
           <Route path="terms" element={<TermsOfUse />} />

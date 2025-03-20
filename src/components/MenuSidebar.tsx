@@ -19,6 +19,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Styled component for the search bar
 const SearchBar = styled('div')(({ theme }) => ({
@@ -67,6 +68,7 @@ const SearchResultItem = styled(ListItem)(({ theme }) => ({
 }));
 
 const MenuSidebar = () => {
+  const navigate = useNavigate();
   // State for drawer open/close
   const [drawerOpen, setDrawerOpen] = useState(false);
   
@@ -78,6 +80,7 @@ const MenuSidebar = () => {
   const [sortOption, setSortOption] = useState('Most Recent');
   
   const [results, setResults] = useState([]);
+  const [timestamps, setTimeStamps] = useState([]);
 
   // Handler for opening the drawer
   const handleDrawerToggle = () => {
@@ -100,9 +103,12 @@ const MenuSidebar = () => {
   };
   
   // Handler for search result click
-  const handleResultClick = (result) => {
-    console.log(`Selected: ${result}`);
-    // Add your logic here for handling the result click
+  const handleResultClick = (result, index) => {
+    
+    let patentid = result;
+    let timestamp = timestamps[index];
+    navigate(`/searchResults/${patentid}/${timestamp}`);
+    // window.location.reload();
   };
 
   const getRecentSearches = async () => {
@@ -110,13 +116,16 @@ const MenuSidebar = () => {
         const response = await axios.get('/api/patents/getRecentSearches', { withCredentials: true });
         
         let resultArray = [];
+        let timestampArray = [];
 
         for(let i = 0; i < response.data.recentSearches.length; i++)
         {
           resultArray.push(response.data.recentSearches[i].patentid);
+          timestampArray.push(response.data.recentSearches[i].timestamp)
         }
 
         setResults(resultArray);
+        setTimeStamps(timestampArray);
     } catch (error) {
         console.error('Failed to get recent results:', error);
     }
@@ -196,7 +205,7 @@ const MenuSidebar = () => {
           {/* Search Results */}
           <List>
             {results.map((result, index) => (
-              <SearchResultItem key={index} onClick={() => handleResultClick(result)}>
+              <SearchResultItem key={index} onClick={() => handleResultClick(result, index)}>
                 <ListItemText primary={result} />
               </SearchResultItem>
             ))}
