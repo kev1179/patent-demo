@@ -66,7 +66,7 @@ const isAuthenticated = (req, res, next) => {
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {
-    cb(null, { id: user.id, username: user.username });
+    cb(null, { id: user.userid, username: user.username });
   });
 });
 
@@ -96,7 +96,7 @@ try {
     let salt = crypto.randomBytes(16);
     const userID = await generateUniqueUserId();
 
-    const date = String(new Date().getTime());
+    const date = new Date().getTime();
 
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword) {
         if (err) { return next(err); }
@@ -127,10 +127,10 @@ router.post('/logout', function(req, res, next) {
 });
 
 router.get('/getAuthStatus', function(req, res, next) {
-    if(req.isAuthenticated())
-        res.json({authenticated: true});
-    else
-    res.json({authenticated: false});
+  if(req.isAuthenticated())
+      res.json({authenticated: true});
+  else
+  res.json({authenticated: false});
 });
 
 router.get('/getUsername', isAuthenticated, (req, res) => {

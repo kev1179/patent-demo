@@ -21,6 +21,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import GraphComponent from '../components/GraphComponent';
+import MenuSidebar from '../components/MenuSidebar';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
@@ -97,8 +98,10 @@ const SearchPage = () => {
         color: 'white',
       }}
     >
+
       <AppBar position="static" sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
         <Toolbar>
+        <MenuSidebar/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           </Typography>
           <IconButton sx={{ p: 0 }} onClick={handleClick}>
