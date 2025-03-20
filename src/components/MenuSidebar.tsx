@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Drawer,
@@ -18,6 +18,7 @@ import {
   ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import axios from 'axios';
 
 // Styled component for the search bar
 const SearchBar = styled('div')(({ theme }) => ({
@@ -65,15 +66,6 @@ const SearchResultItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-// Sample search results data
-const sampleResults = [
-  "Result 1: Document A",
-  "Result 2: Presentation B",
-  "Result 3: Spreadsheet C",
-  "Result 4: Image D",
-  "Result 5: Video E",
-];
-
 const MenuSidebar = () => {
   // State for drawer open/close
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -85,8 +77,11 @@ const MenuSidebar = () => {
   // State for current sort option
   const [sortOption, setSortOption] = useState('Most Recent');
   
+  const [results, setResults] = useState([]);
+
   // Handler for opening the drawer
   const handleDrawerToggle = () => {
+    getRecentSearches();
     setDrawerOpen(!drawerOpen);
   };
   
@@ -109,6 +104,27 @@ const MenuSidebar = () => {
     console.log(`Selected: ${result}`);
     // Add your logic here for handling the result click
   };
+
+  const getRecentSearches = async () => {
+    try {
+        const response = await axios.get('/api/patents/getRecentSearches', { withCredentials: true });
+        
+        let resultArray = [];
+
+        for(let i = 0; i < response.data.recentSearches.length; i++)
+        {
+          resultArray.push(response.data.recentSearches[i].patentid);
+        }
+
+        setResults(resultArray);
+    } catch (error) {
+        console.error('Failed to get recent results:', error);
+    }
+};
+
+  useEffect(() => {
+    getRecentSearches();
+}, []);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -179,7 +195,7 @@ const MenuSidebar = () => {
           
           {/* Search Results */}
           <List>
-            {sampleResults.map((result, index) => (
+            {results.map((result, index) => (
               <SearchResultItem key={index} onClick={() => handleResultClick(result)}>
                 <ListItemText primary={result} />
               </SearchResultItem>

@@ -260,18 +260,17 @@ router.post('/saveResult', isAuthenticated, async (req, res) => {
   {
       res.json({errorMessage: error});
   }
-}));
+});
 
 router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
   try {
 
     let userid = req.user.id;
 
-    const [rows] = await pool.query('select patentid from searches where userid = ?', [
+    const [rows] = await pool.query('select patentid from searches where userid = ? order by timestamp desc', [
       userid
     ]);
 
-    console.log(rows);
     res.json({recentSearches: rows})
   }
 
@@ -279,6 +278,6 @@ router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
   {
       res.json({errorMessage: error});
   }
-}));
+});
 
 module.exports = router;
