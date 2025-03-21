@@ -44,7 +44,7 @@ const router = express.Router();
 passport.use(new LocalStrategy(async function verify(username, password, cb) {
     const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
 
-    console.log(rows[0]);
+    // console.log(rows[0]);
     if(rows.length == 0)
       return cb(null, false, { message: 'Incorrect username or password.' });
 

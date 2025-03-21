@@ -19,14 +19,14 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LandingPage/>} />
           <Route element={<PrivateRoute/>}>
-            <Route path="search" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />
           </Route>
           <Route element={<PrivateRoute/>}>
             <Route path="/searchResults/:patentid/:timestamp/" element={<SearchResults />} />
           </Route>
-          <Route path="privacy" element={<PrivacyPolicy />} />
-          <Route path="terms" element={<TermsOfUse />} />
-          <Route path="login" element={<LoginPage/>}></Route>
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/login" element={<LoginPage/>}></Route>
         </Route>
       </Routes>
     </Router>

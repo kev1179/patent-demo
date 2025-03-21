@@ -3,6 +3,7 @@ import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { Outlet } from "react-router-dom"; // Used for nested routing
 import Footer from "./components/Footer";
 import theme from './theme';
+import lightTheme from "./lightTheme";
 
 const MainLayout = () => {
   return (

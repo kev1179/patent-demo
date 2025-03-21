@@ -60,10 +60,11 @@ const SearchPage = () => {
       setGraphEdges(graphResponse.data.edgeList);
 
       const saveResult = await axios.post("/api/patents/saveResult", 
-        { response: result.summary, patentid: searchTerm},
+        { response: summaryResponse.data.summary, patentid: searchTerm},
         { withCredentials: true });
 
     } catch (error) {
+      console.log(error);
       setResult({ error: 'Failed to fetch patent data' });
     }
     setLoading(false);

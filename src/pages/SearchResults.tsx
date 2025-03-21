@@ -14,12 +14,14 @@ import {
   CircularProgress,
   Menu,
   MenuItem,
-  ListItemIcon
+  ListItemIcon,
+  Icon
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import GraphComponent from '../components/GraphComponent';
 import MenuSidebar from '../components/MenuSidebar';
 import axios from 'axios';
@@ -155,6 +157,12 @@ const SearchResults = () => {
         }}
       >
           <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, justifyContent: 'center'}}>
+            <Link href="/search">
+              <IconButton color='primary' aria-label='Backspace icon'>
+                <KeyboardBackspaceIcon/>
+              </IconButton>
+            </Link>
+
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
             {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
             <ReactMarkdown>{result}</ReactMarkdown>

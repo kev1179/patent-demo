@@ -177,7 +177,7 @@ router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
                        { role: "user", content: optimizedSummary }],
             max_tokens: 1000
         });
-
+        
         const aiSummary = aiResponse.choices[0].message.content;
 
         res.json({ patent_id: patentId, summary: aiSummary });

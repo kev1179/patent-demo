@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import { CircularProgress, Container } from '@mui/material';
 
 const PrivateRoute = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(null); // Null for loading state
@@ -20,7 +21,11 @@ const PrivateRoute = () => {
         checkAuthStatus();
     }, []);
 
-    if (isAuthenticated === null) return <div>Loading...</div>;
+    if (isAuthenticated === null) return (
+    <Container sx={{height: "100vh"}}>
+      <CircularProgress sx={{ color: 'white', mt: 4}} />
+    </Container>
+);
 
     console.log(isAuthenticated);
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;

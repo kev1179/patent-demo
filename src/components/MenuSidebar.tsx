@@ -108,7 +108,7 @@ const MenuSidebar = () => {
     let patentid = result;
     let timestamp = timestamps[index];
     navigate(`/searchResults/${patentid}/${timestamp}`);
-    // window.location.reload();
+    window.location.reload();
   };
 
   const getRecentSearches = async () => {
