@@ -1,52 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  AppBar,
-  Avatar,
   Box,
   Button,
   Container,
-  IconButton,
   InputAdornment,
-  Link,
   TextField,
-  Toolbar,
   Typography,
   CircularProgress,
-  Menu,
-  MenuItem,
-  ListItemIcon
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
 import GraphComponent from '../components/GraphComponent';
-import MenuSidebar from '../components/MenuSidebar';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
-import { useNavigate } from 'react-router-dom';
+import SearchNavBar from '../components/SearchNavBar';
 
 const SearchPage = () => {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState(null);
   const [graphNodes, setGraphNodes] = useState(null);
   const [graphEdges, setGraphEdges] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState('');
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
 
   const darkBlue = '#0A1929';
   const lightBlue = '#1E3A8A';
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-      setAnchorEl(null);
-  };
 
   const handleSearch = async () => {
     if (!searchTerm) return;
@@ -70,84 +46,17 @@ const SearchPage = () => {
     setLoading(false);
   };
 
-  const handleLogout = async () => {
-    try {
-        await axios.post('/api/auth/logout', {}, { withCredentials: true });
-        navigate('/login'); // Redirect to the login page after logout
-    } catch (error) {
-        console.error('Logout failed:', error);
-    } finally {
-        handleClose();
-    }
-  };
-
-  useEffect(() => {
-    const fetchUsername = async () => {
-        try {
-            const response = await axios.get('/api/auth/getUsername', { withCredentials: true });
-            setUsername(response.data.username); // Assuming the API returns { username: "JohnDoe" }
-        } catch (error) {
-            console.error('Failed to fetch username:', error);
-        }
-    };
-
-    fetchUsername();
-}, []);
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-        bgcolor: darkBlue,
         color: 'white',
       }}
     >
 
-      <AppBar position="static" sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
-        <Toolbar>
-        <MenuSidebar/>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          </Typography>
-          <IconButton sx={{ p: 0 }} onClick={handleClick}>
-            <Avatar alt="User Profile" />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        sx={{textAlign: 'center'}}
-        >
-          <Typography>{username}</Typography>
-
-          <MenuItem onClick={handleClose}>
-              <ListItemIcon sx={{ color: '#FFFFFF' }}>
-                  <PersonIcon />
-              </ListItemIcon>
-              Account
-          </MenuItem>
-
-          <MenuItem onClick={handleClose}>
-              <ListItemIcon sx={{ color: '#FFFFFF' }}>
-                  <SettingsIcon />
-              </ListItemIcon>
-              Settings
-          </MenuItem>
-
-          <MenuItem onClick={handleLogout}>
-              <ListItemIcon sx={{ color: 'red' }}>
-                  <LogoutIcon />
-              </ListItemIcon>
-              Logout
-          </MenuItem>
-
-        </Menu>
+      <SearchNavBar/>
 
       <Container 
         component="main" 
@@ -259,59 +168,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-// import React from "react";
-// import { Container, TextField, InputAdornment, IconButton, Typography, Box, AppBar, Toolbar, Avatar, Link } from "@mui/material";
-// import SearchIcon from "@mui/icons-material/Search";
-
-// const SearchPage = () => {
-//   return (
-//     <Box sx={{ backgroundColor: "#0A192F", minHeight: "100vh", color: "#FFFFFF", display: "flex", flexDirection: "column"}}>
-//       {/* Header */}
-//       <AppBar position="static" sx={{ backgroundColor: "#112240" }}>
-//         <Toolbar sx={{ justifyContent: "flex-end" }}>
-//           <Avatar alt="User Avatar" sx={{ bgcolor: "#64ffda" }} />
-//         </Toolbar>
-//       </AppBar>
-      
-//       {/* Main Content */}
-//       <Container sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-//         <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#64ffda" }}>
-//           PatentPal
-//         </Typography>
-//         <TextField
-//           variant="outlined"
-//           placeholder="Enter keywords or patent code..."
-//           sx={{
-//             width: "50%",
-//             backgroundColor: "#112240",
-//             borderRadius: "5px",
-//             input: { color: "#FFFFFF" },
-//           }}
-//           InputProps={{
-//             endAdornment: (
-//               <InputAdornment position="end">
-//                 <IconButton sx={{ color: "#64ffda" }}>
-//                   <SearchIcon />
-//                 </IconButton>
-//               </InputAdornment>
-//             ),
-//           }}
-//         />
-//       </Container>
-
-//       {/* Footer */}
-//       <Box component="footer" sx={{ backgroundColor: "#112240", padding: "16px", textAlign: "center" }}>
-//         <Typography variant="body2" color="#64ffda">
-//           <Link href="/privacy" color="inherit" underline="hover">Privacy Policy</Link> | 
-//           <Link href="/terms" color="inherit" underline="hover"> Terms of Use</Link>
-//         </Typography>
-//         <Typography variant="body2" color="#FFFFFF">
-//           &copy; {new Date().getFullYear()} PatentPal. All rights reserved.
-//         </Typography>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default SearchPage;
