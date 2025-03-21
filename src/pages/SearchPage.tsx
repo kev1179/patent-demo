@@ -21,9 +21,6 @@ const SearchPage = () => {
   const [graphEdges, setGraphEdges] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const darkBlue = '#0A1929';
-  const lightBlue = '#1E3A8A';
-
   const handleSearch = async () => {
     if (!searchTerm) return;
     setLoading(true);
@@ -84,14 +81,14 @@ const SearchPage = () => {
               WebkitTextFillColor: 'transparent',
             }}
           >
-            PatentPartner
+            SmartPatents
           </Typography>
         )}
 
         <Box sx={{ width: '100%', maxWidth: 600, position: 'relative', mb: result ? 4 : 7 }}>
           <TextField
             fullWidth
-            placeholder="Enter keywords or patent code..."
+            placeholder="Enter Patent Code..."
             variant="outlined"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
