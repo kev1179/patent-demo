@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField, Button, Typography, Link, Box, Container } from '@mui/material';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { Navigate } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
@@ -10,17 +9,18 @@ const LoginPage = () => {
   const [hasError, setHasError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log('Logging in with:', credentials);
     
     try {
       const response = await axios.post("/api/auth/login", { "username": credentials.username, "password": credentials.password });
       setSuccess(true);
+      console.log(`Login Success: ${response.data.success}`);
     } catch (err) {
       setHasError(true);
     }

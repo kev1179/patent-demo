@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import {useState} from 'react';
 import { 
   Box,
   Button,
@@ -16,9 +16,9 @@ import SearchNavBar from '../components/SearchNavBar';
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [result, setResult] = useState(null);
-  const [graphNodes, setGraphNodes] = useState(null);
-  const [graphEdges, setGraphEdges] = useState(null);
+  const [result, setResult] = useState<{summary: string}>();
+  const [graphNodes, setGraphNodes] = useState<any>(null);
+  const [graphEdges, setGraphEdges] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -35,10 +35,11 @@ const SearchPage = () => {
       const saveResult = await axios.post("/api/patents/saveResult", 
         { response: summaryResponse.data.summary, patentid: searchTerm},
         { withCredentials: true });
-
+      
+        console.log(saveResult.data.message);
     } catch (error) {
       console.log(error);
-      setResult({ error: 'Failed to fetch patent data' });
+      setResult({ summary: 'Failed to fetch patent data' });
     }
     setLoading(false);
   };
@@ -152,7 +153,7 @@ const SearchPage = () => {
           <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
             {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
-            <ReactMarkdown>{result.summary || result.error}</ReactMarkdown>
+            <ReactMarkdown>{result.summary}</ReactMarkdown>
 
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Claims Visualized:</Typography>
             <GraphComponent nodes={graphNodes} edges={graphEdges}></GraphComponent>

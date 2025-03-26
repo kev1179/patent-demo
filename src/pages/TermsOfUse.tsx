@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Container, Typography, Link } from '@mui/material';
+import {Container, Typography, Link } from '@mui/material';
 
 const TermsOfUse = () => {
   return (

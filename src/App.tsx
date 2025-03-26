@@ -1,6 +1,3 @@
-import React from 'react';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import theme from './theme';
 import SearchPage from './pages/SearchPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LoginPage from './pages/LoginPage';

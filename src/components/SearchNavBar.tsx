@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
   AppBar,
   Avatar,
-  Box,
-  Button,
-  Container,
   IconButton,
-  InputAdornment,
-  Link,
-  TextField,
   Toolbar,
   Typography,
-  CircularProgress,
   Menu,
   MenuItem,
   ListItemIcon,
-  Icon
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -31,7 +23,7 @@ const SearchNavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 

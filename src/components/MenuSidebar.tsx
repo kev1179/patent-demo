@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Drawer,
@@ -19,7 +19,7 @@ import {
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Styled component for the search bar
 const SearchBar = styled('div')(({ theme }) => ({
@@ -89,7 +89,7 @@ const MenuSidebar = () => {
   };
   
   // Handler for sort menu
-  const handleSortMenuOpen = (event) => {
+  const handleSortMenuOpen = (event: any) => {
     setSortMenuAnchor(event.currentTarget);
   };
   
@@ -97,13 +97,13 @@ const MenuSidebar = () => {
     setSortMenuAnchor(null);
   };
   
-  const handleSortOptionSelect = (option) => {
+  const handleSortOptionSelect = (option: any) => {
     setSortOption(option);
     handleSortMenuClose();
   };
   
   // Handler for search result click
-  const handleResultClick = (result, index) => {
+  const handleResultClick = (result: string, index: any) => {
     
     let patentid = result;
     let timestamp = timestamps[index];
@@ -124,8 +124,8 @@ const MenuSidebar = () => {
           timestampArray.push(response.data.recentSearches[i].timestamp)
         }
 
-        setResults(resultArray);
-        setTimeStamps(timestampArray);
+        setResults(resultArray as any);
+        setTimeStamps(timestampArray as any);
     } catch (error) {
         console.error('Failed to get recent results:', error);
     }

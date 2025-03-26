@@ -11,15 +11,6 @@ export default defineConfig({
         ws: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''),
-        configure: (proxy, options) => {
-          console.log('Proxy configured:', options);
-          proxy.on('proxyReq', (proxyReq, req) => {
-            console.log('Proxying request to:', req.url);
-          });
-          proxy.on('proxyRes', (proxyRes, req) => {
-            console.log('Received response from:', req.url);
-          });
-        }
       },
     },
   },

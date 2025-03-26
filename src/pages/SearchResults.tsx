@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
   Box,
   Container,
@@ -15,12 +15,9 @@ import { useParams } from 'react-router-dom';
 
 const SearchResults = () => {
   const {patentid, timestamp} = useParams();
-  const [result, setResult] = useState("");
-  const [graphNodes, setGraphNodes] = useState(null);
-  const [graphEdges, setGraphEdges] = useState(null);
-
-  const darkBlue = '#0A1929';
-  const lightBlue = '#1E3A8A';
+  const [result, setResult] = useState<string>('');
+  const [graphNodes, setGraphNodes] = useState<any>(null);
+  const [graphEdges, setGraphEdges] = useState<any>(null);
 
   const getResult = async () => {
     try {
@@ -32,7 +29,7 @@ const SearchResults = () => {
       setGraphEdges(graphResponse.data.edgeList);
 
     } catch (error) {
-      setResult({ error: 'Failed to fetch patent data' });
+      setResult('Failed to fetch patent data');
     }
 
   };

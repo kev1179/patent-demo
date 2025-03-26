@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -20,7 +19,7 @@ const LandingPage = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* Navigation Bar */}
-      <AppBar position="static" elevation={0} color='background'>
+      <AppBar position="static" elevation={0} sx={{bgcolor: '#0A1929'}}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PatentPartner

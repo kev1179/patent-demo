@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Network } from 'vis-network/standalone';
 import 'vis-network/styles/vis-network.css';
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
-const GraphComponent = ({ nodes, edges }) => {
-    const containerRef = useRef(null);
-    const [selectedNode, setSelectedNode] = useState(null);
+type GraphComponentProps = {
+    nodes: [{id: number, label: string, info: string}];
+    edges: [{from: number, to: number}]
+};
+
+const GraphComponent: React.FC<GraphComponentProps> = ({ nodes, edges}) => {
+    const containerRef: any = useRef(null);
+    const [selectedNode, setSelectedNode] = useState<any>(null);
 
     useEffect(() => {
         // Nodes format: [{ id: number, label: string, info: string }, ...]
