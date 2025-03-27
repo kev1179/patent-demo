@@ -25,5 +25,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t username/repo_name:latest .
-          docker push username/repo_name:latest
+          docker build -t kevin1179/smart-patents:latest .
+          docker push kevin1179/smart-patents:latest
