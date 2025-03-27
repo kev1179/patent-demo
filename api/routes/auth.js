@@ -5,7 +5,8 @@ const crypto = require('crypto');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 
-dotenv.config();
+if(process.env.NODE_ENV !== 'production')
+  dotenv.config();
 
 const pool = mysql.createPool
 ({

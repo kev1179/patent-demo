@@ -2,12 +2,14 @@ const express = require("express");
 const axios = require("axios");
 const cheerio = require('cheerio');
 const mysql = require('mysql2');
+const dotenv = require('dotenv');
 const { OpenAI } = require("openai");
 
 const router = express.Router();
 
 // Load environment variables
-require("dotenv").config();
+if(process.env.NODE_ENV !== 'production')
+    dotenv.config();
 const OPENAI_API_KEY = process.env.OPENAI_KEY;
 // const PATENTSVIEW_API_KEY = process.env.PATENTSVIEW_KEY;
 

@@ -2,7 +2,7 @@
 FROM node:22 AS builder
 
 # Declaring env
-#ENV NODE_ENV production
+ENV NODE_ENV production
 
 # Setting up the work directory
 WORKDIR /app

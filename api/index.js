@@ -7,10 +7,12 @@ const passport = require("passport");
 const patentsRoutes = require("./routes/patents");
 const authRoutes = require("./routes/auth");
 
-dotenv.config();
+if(process.env.NODE_ENV !== 'production')
+    dotenv.config();
 
 const app = express();
 app.use(express.json());
+
 
 let options = {
     host: process.env.MYSQL_HOST, // Host name for database connection.
