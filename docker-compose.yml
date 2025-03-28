@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   backend:
-    build: ./api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     container_name: smartpatents-backend
     ports:
       - "5000:5000"
@@ -11,7 +13,9 @@ services:
     image:  kevin1179/smart-patents:latest
 
   frontend:
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: smartpatents-frontend
     ports:
       - "80:80"
