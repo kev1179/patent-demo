@@ -32,8 +32,8 @@ jobs:
       - name: Build, push, and run Docker image
         run: |
           docker compose build
-          docker save -o frontend_image.tar smartpatents-frontend
-          docker save -o backend_image.tar smartpatents-backend
+          docker save -o frontend_image.tar frontend_image
+          docker save -o backend_image.tar backend_image
           scp docker-compose.yml frontend_image.tar backend_image.tar ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }}:~/docker
 
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.VPS_USER }}@${{ secrets.VPS_IP }} << EOF
