@@ -10,7 +10,6 @@ services:
       - "5000:5000"
     env_file:
       - prod.env
-    image:  kevin1179/smart-patents:latest
 
   frontend:
     build:
@@ -21,4 +20,3 @@ services:
       - "80:80"
     depends_on:
       - backend
-    image:  kevin1179/smart-patents:latest
