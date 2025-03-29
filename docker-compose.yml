@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     container_name: smartpatents-frontend
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - backend
     image: frontend_image
