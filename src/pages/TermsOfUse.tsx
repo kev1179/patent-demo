@@ -8,7 +8,7 @@ const TermsOfUse = () => {
       </Typography>
 
       <Typography paragraph>
-        Welcome to **PatentPartner**. By using our platform, you agree to the following terms and conditions.  
+        Welcome to **SmartPatents**. By using our platform, you agree to the following terms and conditions.  
         If you do not agree with any part of these terms, please do not use our services.
       </Typography>
 
@@ -37,7 +37,7 @@ const TermsOfUse = () => {
         3. No Legal or Professional Advice
       </Typography>
       <Typography paragraph>
-        **PatentPartner is not a legal advisory service.**  
+        **SmartPatents is not a legal advisory service.**  
         The content on our platform is provided for informational purposes only and should **not** be relied upon as legal, financial, or technical advice.  
         Always consult a **qualified professional or attorney** before making any decisions related to patents.
       </Typography>
@@ -67,7 +67,7 @@ const TermsOfUse = () => {
       </Typography>
       <Typography paragraph>
         We are **not responsible** for any losses, damages, or legal disputes that arise from using our platform.  
-        By using our service, you acknowledge that **PatentPartner is not the definitive source for patent information**, and you should verify results with **official sources** before taking any action.
+        By using our service, you acknowledge that **SmartPatents is not the definitive source for patent information**, and you should verify results with **official sources** before taking any action.
       </Typography>
 
       {/* Section 6: Updates and Contact */}
@@ -86,9 +86,9 @@ const TermsOfUse = () => {
         If you have any questions about these terms, please contact us:
       </Typography>
       <Typography paragraph>
-        **PatentPartner Support**  
-        Email: <Link href="mailto:support@patentpartner.com">support@patentpartner.com</Link>  
-        Website: <Link href="https://www.patentpartner.com">www.patentpartner.com</Link>
+        **SmartPatents Support**  
+        Email: <Link href="mailto:support@SmartPatents.com">support@SmartPatents.com</Link>  
+        Website: <Link href="https://www.SmartPatents.com">www.SmartPatents.com</Link>
       </Typography>
 
     </Container>

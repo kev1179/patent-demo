@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
       </Typography>
 
       <Typography paragraph>
-        Welcome to **PatentPartner**. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our services.  
+        Welcome to **SmartPatents**. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information when you use our services.  
       </Typography>
 
       <Typography paragraph>
@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
         1. Information We Collect
       </Typography>
       <Typography paragraph>
-        When you use **PatentPartner**, we may collect the following types of information:
+        When you use **SmartPatents**, we may collect the following types of information:
       </Typography>
       <ul>
         <li>
@@ -123,7 +123,7 @@ const PrivacyPolicy = () => {
         </li>
       </ul>
       <Typography paragraph>
-        To exercise any of these rights, please contact us at <Link href="mailto:support@patentpartner.com">support@patentpartner.com</Link>.
+        To exercise any of these rights, please contact us at <Link href="mailto:support@SmartPatents.com">support@SmartPatents.com</Link>.
       </Typography>
 
       {/* Section 6: Third-Party Links */}
@@ -150,9 +150,9 @@ const PrivacyPolicy = () => {
         If you have any questions about this Privacy Policy or our data practices, please contact us at:
       </Typography>
       <Typography paragraph>
-        **PatentPartner Support**  
-        Email: <Link href="mailto:support@patentpartner.com">support@patentpartner.com</Link>  
-        Website: <Link href="https://www.patentpartner.com">www.patentpartner.com</Link>
+        **SmartPatents Support**  
+        Email: <Link href="mailto:support@SmartPatents.com">support@SmartPatents.com</Link>  
+        Website: <Link href="https://www.SmartPatents.com">www.SmartPatents.com</Link>
       </Typography>
 
     </Container>

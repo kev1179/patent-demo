@@ -22,7 +22,7 @@ const LandingPage = () => {
       <AppBar position="static" elevation={0} sx={{bgcolor: '#0A1929'}}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            PatentPartner
+            SmartPatents
           </Typography>
           <Link href="/login"><Button variant='contained'>Login</Button></Link>
           <Link href="/login"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
@@ -41,7 +41,7 @@ const LandingPage = () => {
             Research Patents 10x Faster
           </Typography>
           <Typography variant="h5" color="text.secondary" paragraph>
-            PatentPartner uses cutting-edge AI to revolutionize how you search, analyze, and understand patent information.
+            SmartPatents uses cutting-edge AI to revolutionize how you search, analyze, and understand patent information.
           </Typography>
           <Box sx={{ mt: 4 }}>
             <Button 
@@ -59,7 +59,7 @@ const LandingPage = () => {
       <Box sx={{ py: 6, bgcolor: 'background.paper' }}>
         <Container maxWidth="md">
           <Typography variant="h4" component="h2" gutterBottom textAlign="center">
-            See PatentPartner in Action
+            See SmartPatents in Action
           </Typography>
           <Box sx={{ mt: 4 }}>
             <Card elevation={3}>
