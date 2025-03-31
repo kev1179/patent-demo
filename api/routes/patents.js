@@ -78,6 +78,15 @@ function getClaimID(claimNumber)
     return prefix + body;
 }
 
+function getClaimID2(claimNumber)
+{
+    let prefix = 'clm-';
+    let body = String(claimNumber).padStart(4, '0');
+
+
+    return prefix + body;
+}
+
 function getParentClaim(claimText)
 {
     let claimTokens = claimText.split(" ");
@@ -90,6 +99,19 @@ function getParentClaim(claimText)
             const currentToken = claimTokens[i + 1];
             const punctuationRemoved = currentToken.replace(/\D/g, "");
             parent = punctuationRemoved;
+        }
+
+        else if(claimTokens[i] === 'claims' && i != claimTokens - 1)
+        {
+            const currentToken = claimTokens[i + 1];
+            const punctuationRemoved = currentToken.replace(/[^0-9-]/g, '');
+            const match = punctuationRemoved.match(/^(\d+)-\d+$/);
+
+            if (match) 
+            {
+                parent = match[1];
+            }
+
         }
     }
 
@@ -210,7 +232,15 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
         while(claimNumber < 100)
         {
             let claimID = getClaimID(claimNumber);
-            let text = $('#' + claimID).text().trim();
+
+            let text;
+            if($('#' + claimID).length > 0)
+                text = $('#' + claimID).text().trim();
+            else
+            {   
+                claimID = getClaimID2(claimNumber);
+                text = $('#' + claimID.toLowerCase()).text().trim();
+            }
 
             if(!text)
             {
