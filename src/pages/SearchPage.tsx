@@ -22,7 +22,22 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
 
   const cleanPatentCode = (patentCode: string) => {
-    return patentCode.replace(/[^a-zA-Z0-9]/g, '');
+
+    const stripLeadingZeros = (patentCode: string) => {
+      const regex = /^(\D{2})(0*)(\d+)(\w*)$/;
+      const match = patentCode.match(regex);
+    
+      if (match) {
+        const [, countryCode, , serialNumber, kindCode] = match;
+        return `${countryCode}${serialNumber}${kindCode}`;
+      }
+    
+      return "";
+    }
+
+    let cleanedCode:string = patentCode.replace(/[^a-zA-Z0-9]/g, '');
+    cleanedCode = stripLeadingZeros(cleanedCode);
+    return cleanedCode;
   }
 
   const handleSearch = async () => {
