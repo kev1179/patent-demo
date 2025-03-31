@@ -8,7 +8,7 @@ const Footer = () => {
         <Link href="/terms" color="inherit" underline="hover"> Terms of Use</Link>
       </Typography>
       <Typography variant="body2" color="#FFFFFF">
-        &copy; {new Date().getFullYear()} PatentPartner. All rights reserved.
+        &copy; {new Date().getFullYear()} SmartPatents. All rights reserved.
       </Typography>
     </Box>
   );

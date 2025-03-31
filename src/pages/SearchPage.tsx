@@ -21,19 +21,25 @@ const SearchPage = () => {
   const [graphEdges, setGraphEdges] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
+  const cleanPatentCode = (patentCode: string) => {
+    return patentCode.replace(/[^a-zA-Z0-9]/g, '');
+  }
+
   const handleSearch = async () => {
     if (!searchTerm) return;
     setLoading(true);
     try {
-      const summaryResponse = await axios.get(`/api/patents/getSummary/${searchTerm}`);
-      const graphResponse = await axios.get(`/api/patents/getClaimGraph/${searchTerm}`);
+      let cleanedPatentCode = cleanPatentCode(searchTerm);
+
+      const summaryResponse = await axios.get(`/api/patents/getSummary/${cleanedPatentCode}`);
+      const graphResponse = await axios.get(`/api/patents/getClaimGraph/${cleanedPatentCode}`);
 
       setResult(summaryResponse.data);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
 
       const saveResult = await axios.post("/api/patents/saveResult", 
-        { response: summaryResponse.data.summary, patentid: searchTerm},
+        { response: summaryResponse.data.summary, patentid: cleanedPatentCode},
         { withCredentials: true });
       
         console.log(saveResult.data.message);
