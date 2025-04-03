@@ -1,39 +1,37 @@
 import {
-  AppBar,
   Toolbar,
   Typography,
   Button,
   Container,
-  Grid,
   Box,
   Card,
   CardContent,
   CardMedia,
-  Link
+  Link,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import SpeedIcon from '@mui/icons-material/Speed';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const LandingPage = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Container maxWidth= "xl" sx={{ flexGrow: 1, background: "radial-gradient(circle, rgba(0, 150, 255, 0.6) 0%, rgba(0, 0, 0, 0) 70%)"}}>
       {/* Navigation Bar */}
-      <AppBar position="static" elevation={0} sx={{bgcolor: '#0A1929'}}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SmartPatents
+            SmartPatents &#129504;
           </Typography>
           <Link href="/login"><Button variant='contained'>Login</Button></Link>
           <Link href="/login"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
         </Toolbar>
-      </AppBar>
 
       {/* Hero Section */}
       <Box 
         sx={{ 
           py: 8,
-          textAlign: 'center'
+          textAlign: 'center',
+
         }}
       >
         <Container maxWidth="md">
@@ -55,80 +53,119 @@ const LandingPage = () => {
         </Container>
       </Box>
 
-      {/* Video Demo Section */}
-      <Box sx={{ py: 6, bgcolor: 'background.paper' }}>
-        <Container maxWidth="md">
-          <Typography variant="h4" component="h2" gutterBottom textAlign="center">
-            See SmartPatents in Action
-          </Typography>
-          <Box sx={{ mt: 4 }}>
-            <Card elevation={3}>
-              <CardMedia
-                component="video"
-                autoPlay
-                loop
-                muted
-                src="https://www.w3schools.com/tags/movie.mp4"
-                sx={{ height: 400 }}
-              />
-            </Card>
-          </Box>
-        </Container>
-      </Box>
+      <Box sx={{ textAlign: "center", p: 4 , mt: 12}} >
+      <Typography variant="h4" gutterBottom>
+        Product Features
+      </Typography>
 
-      {/* Features Section */}
-      <Box sx={{ py: 8 }}>
-        <Container>
-          <Typography variant="h4" component="h2" gutterBottom textAlign="center" sx={{ mb: 6 }}>
-            How We Make Patent Research Better
-          </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
-                  <SearchIcon sx={{ fontSize: 60, mb: 2 }} />
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Smart Search
-                  </Typography>
-                  <Typography>
-                    AI-powered search understands context and meaning, not just keywords, helping you find relevant patents faster.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            
-            <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
-                  <SpeedIcon sx={{ fontSize: 60, mb: 2 }} />
-                  <Typography gutterBottom variant="h5" component="h3">
-                    10x Faster
-                  </Typography>
-                  <Typography>
-                    What used to take hours now takes minutes. Our AI analyzes and summarizes complex patent documents instantly.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            
-            <Grid item xs={12} md={4}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
-                  <AutoGraphIcon sx={{ fontSize: 60, mb: 2 }} />
-                  <Typography gutterBottom variant="h5" component="h3">
-                    Insightful Analysis
-                  </Typography>
-                  <Typography>
-                    Gain competitive intelligence with automated analysis of patent landscapes and technology trends.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 3, mt: 2 }}>
+        
+        {/* Feature 1 */}
+        <Card sx={{ width: 300, boxShadow: 3, "&:hover": 
+        {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          },}}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Patent Summaries
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              SmartPatents features an AI tool that will provide a summary tailored to your needs. SmartPatents is specifically designed for research scientists
+              in STEM fields. Our summaries go into far more detail than generic AI summaries. All you have to do is copy and paste the code and SmartPatents takes
+              care of the rest.
+            </Typography>
+          </CardContent>
 
+        </Card>
+
+        {/* Feature 2 */}
+        <Card sx={{ width: 300, boxShadow: 3 , "&:hover": 
+        {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          }}}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Claim Visualization
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              We provide a graph that helps you keep track of which claims depend on one another.
+            </Typography>
+          </CardContent>
+          <CardMedia
+            component="img"
+            height="140"
+            image="dependency_graph.png"
+            alt="Feature 2 Image"
+          />
+        </Card>
+
+        {/* Feature 3 */}
+        <Card sx={{ width: 300, boxShadow: 3 , "&:hover": 
+        {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          }}}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Examples Comparison
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              SmartPatents uses AI to analyze and compare examples within a patent.
+              We provide you with a table that neatly organizes all of the example sections
+              within the patents, saving you time and energy.
+            </Typography>
+          </CardContent>
+        </Card>
+
+      </Box>
     </Box>
+
+    <Box sx={{ width: "100%",  margin: "auto", padding: 2, mt: 12, borderRadius: '5px'}} >
+      <Typography variant="h5" gutterBottom textAlign={"center"}>
+        FAQ's
+      </Typography>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: 'white'}}/>}>
+          <Typography>How much does SmartPatents cost?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Right now, we are giving early adopters exclusive free early access so act fast and join the waiting list!
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: 'white'}}/>}>
+          <Typography>Does SmartPatents work for international patents?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Yes, SmartPatents works for international patents.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: 'white'}}/>}>
+          <Typography>What format do patent codes need to be in?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Our app is designed to handle various ways patent codes are expressed. Just copy and paste the full patent code (include the country code)
+            and our app should handle it. Punctuation and spaces are not an issue. We recommend pasting the code as written right below the bar code in the patent document.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </Box>
+
+    </Container>
   );
 };
 
