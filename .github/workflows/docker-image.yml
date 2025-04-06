@@ -41,7 +41,7 @@ jobs:
           scp -i ~/.ssh/id_ed25519_db ./db/schema.sql ${{ secrets.VPS_DB_USER }}@${{ secrets.VPS_DB_IP }}:~/schema
           ssh -i ~/.ssh/id_ed25519_db ${{ secrets.VPS_DB_USER }}@${{ secrets.VPS_DB_IP }} << EOF
             cd schema
-            mysql -u ${{ secrets.MYSQL_USER }} -p${{ secrets.MYSQL_PASSWORD }} ${{ secrets.MYSQL_DATABASE }} < schema.sql
+            mysql -u ${{ secrets.MYSQL_USER }} -p'${{ secrets.MYSQL_PASSWORD }}' ${{ secrets.MYSQL_DATABASE }} < schema.sql
           EOF
 
       - name: Build, push, and run Docker image
