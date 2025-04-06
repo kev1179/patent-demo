@@ -6,7 +6,7 @@ const MySQLStore = require('express-mysql-session')(session);
 const passport = require("passport");
 const patentsRoutes = require("./routes/patents");
 const authRoutes = require("./routes/auth");
-// const emailRoutes = require("./routes/email");
+const emailRoutes = require("./routes/email");
 
 if(process.env.NODE_ENV !== 'production')
     dotenv.config();
@@ -55,7 +55,7 @@ app.use((err, req, res, next) => {
 
 app.use("/patents", patentsRoutes);
 app.use("/auth", authRoutes);
-// app.use("/email", emailRoutes);
+app.use("/email", emailRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,37 +1,35 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
-require('dotenv').config();
+const mysql = require('mysql2');
+const dotenv = require('dotenv');
+
+if(process.env.NODE_ENV !== 'production')
+  dotenv.config();
+
+const pool = mysql.createPool
+({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
+}).promise();
 
 const router = express.Router();
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: "OAUTH2",
-    user: process.env.EMAIL_USER,
-    clientId: process.env.EMAIL_CLIENT_ID,
-    clientSecret: process.env.EMAIL_CLIENT_SECRET,
-  },
-});
+router.post('/joinWaitList', async (req, res) => {
 
-router.post('/sendInterestEmail', async (req, res) => {
   const { email } = req.body;
+  try 
+  {
+    const [rows] = await pool.query('INSERT INTO demo_waitlist (email) VALUES (?)', [
+      email
+    ]);
 
-  if (!email)
-    return res.status(400).json({ message: 'Email address is required' });
+    res.json({message: "Success!"})
+  }
 
-  try {
-    await transporter.sendMail({
-      from: `"My App" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: 'Thank you for choosing SmartPatents',
-      text: 'Someone from our team will be in contact with you shortly.',
-    });
-
-    res.status(200).json({ message: `Email sent to ${email}` });
-  } catch (error) {
-    console.error('Email sending error:', error);
-    res.status(500).json({ message: 'Failed to send email', error });
+  catch(error)
+  {
+    res.json({errorMessage: error});
   }
 });
 

@@ -13,6 +13,7 @@ import {
   AccordionDetails
 } from '@mui/material';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import WaitList from '../components/WaitList';
 
 const LandingPage = () => {
   return (
@@ -38,17 +39,14 @@ const LandingPage = () => {
           <Typography variant="h2" component="h1" gutterBottom>
             Research Patents 10x Faster
           </Typography>
-          <Typography variant="h5" color="text.secondary" paragraph>
+          <Typography variant="h5" color="text.secondary" gutterBottom>
             SmartPatents uses cutting-edge AI to revolutionize how you search, analyze, and understand patent information.
           </Typography>
+
+          <Typography variant='h6' color="text.secondary" sx={{mt: 4}}>We're accepting applications for early adopters to try out SmartPatents.</Typography>
+
           <Box sx={{ mt: 4 }}>
-            <Button 
-              variant="contained" 
-              size="large" 
-              sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
-            >
-              Book a Demo
-            </Button>
+            <WaitList/>
           </Box>
         </Container>
       </Box>
