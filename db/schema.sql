@@ -45,9 +45,10 @@ CREATE TABLE IF NOT EXISTS `user_preferences` (
     FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
 );
 
-INSERT INTO user_types (name)
-VALUES 
-    ('admin'),
-    ('regular'),
-    ('unpaid'),
-    ('free_trial');
+-- Causes issues when rerunning script.
+-- INSERT INTO user_types (name)
+-- VALUES 
+--     ('admin'),
+--     ('regular'),
+--     ('unpaid'),
+--     ('free_trial');
