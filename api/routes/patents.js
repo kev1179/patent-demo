@@ -183,7 +183,7 @@ router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
         const response = await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
         const $ = cheerio.load(response.data);
 
-        let description = $('.description').text().trim();
+        let description = $('.claims').text().trim();
         if (!description) {
             description = $('section.abstract').text().trim(); // Fallback to abstract if no description found
         }
@@ -193,11 +193,12 @@ router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
         }
 
         optimizedSummary = optimizeSummary(description);
+        console.log(optimizedSummary)
 
         // Send the summary to OpenAI API for processing
         const aiResponse = await openai.chat.completions.create({
             model: "gpt-4o-mini",
-            messages: [{ role: "system", content: "Summarize this patent in technical terms:" },
+            messages: [{ role: "system", content: "Summarize this patent in technical terms based off of its claims:" },
                        { role: "user", content: optimizedSummary }],
             max_tokens: 1000
         });
