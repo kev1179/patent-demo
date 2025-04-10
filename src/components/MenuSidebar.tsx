@@ -3,59 +3,59 @@ import {
   Box,
   Drawer,
   IconButton,
-  InputBase,
+  // InputBase,
   List,
   ListItem,
   ListItemText,
-  Menu,
-  MenuItem,
-  Typography,
-  Divider,
+  // Menu,
+  // MenuItem,
+  // Typography,
+  // Divider,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Search as SearchIcon,
-  ExpandMore as ExpandMoreIcon,
+  // Search as SearchIcon,
+  // ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 // Styled component for the search bar
-const SearchBar = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.action.hover,
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
+// const SearchBar = styled('div')(({ theme }) => ({
+//   position: 'relative',
+//   borderRadius: theme.shape.borderRadius,
+//   backgroundColor: theme.palette.action.hover,
+//   '&:hover': {
+//     backgroundColor: theme.palette.action.hover,
+//   },
+//   marginLeft: 0,
+//   width: '100%',
+//   [theme.breakpoints.up('sm')]: {
+//     marginLeft: theme.spacing(1),
+//     width: 'auto',
+//   },
+// }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: '100%',
+//   position: 'absolute',
+//   pointerEvents: 'none',
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-  },
-}));
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//   color: 'inherit',
+//   '& .MuiInputBase-input': {
+//     padding: theme.spacing(1, 1, 1, 0),
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create('width'),
+//     width: '100%',
+//   },
+// }));
 
 // Styled component for search results
 const SearchResultItem = styled(ListItem)(({ theme }) => ({
@@ -73,11 +73,11 @@ const MenuSidebar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   
   // State for sort menu
-  const [sortMenuAnchor, setSortMenuAnchor] = useState(null);
-  const sortMenuOpen = Boolean(sortMenuAnchor);
+  // const [sortMenuAnchor, setSortMenuAnchor] = useState(null);
+  // const sortMenuOpen = Boolean(sortMenuAnchor);
   
   // State for current sort option
-  const [sortOption, setSortOption] = useState('Most Recent');
+  // const [sortOption, setSortOption] = useState('Most Recent');
   
   const [results, setResults] = useState([]);
   const [timestamps, setTimeStamps] = useState([]);
@@ -89,18 +89,18 @@ const MenuSidebar = () => {
   };
   
   // Handler for sort menu
-  const handleSortMenuOpen = (event: any) => {
-    setSortMenuAnchor(event.currentTarget);
-  };
+  // const handleSortMenuOpen = (event: any) => {
+  //   setSortMenuAnchor(event.currentTarget);
+  // };
   
-  const handleSortMenuClose = () => {
-    setSortMenuAnchor(null);
-  };
+  // const handleSortMenuClose = () => {
+  //   setSortMenuAnchor(null);
+  // };
   
-  const handleSortOptionSelect = (option: any) => {
-    setSortOption(option);
-    handleSortMenuClose();
-  };
+  // const handleSortOptionSelect = (option: any) => {
+  //   setSortOption(option);
+  //   handleSortMenuClose();
+  // };
   
   // Handler for search result click
   const handleResultClick = (result: string, index: any) => {

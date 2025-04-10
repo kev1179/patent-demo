@@ -9,8 +9,8 @@ import {
   MenuItem,
   ListItemIcon,
 } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsIcon from '@mui/icons-material/Settings';
+// import PersonIcon from '@mui/icons-material/Person';
+// import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuSidebar from './MenuSidebar';
 import { useNavigate } from 'react-router-dom';
