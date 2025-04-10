@@ -69,12 +69,15 @@ const SearchResults = () => {
               </IconButton>
             </Link>
 
-            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
-            {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
+            <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">
+              <Typography variant='h4' textAlign={'center'} color='primary'>{patentid}</Typography>
+            </Link>
+
+            <Typography variant="h5" sx={{ mb: 2}} color='secondary'>Search Result:</Typography>
             <ReactMarkdown>{result}</ReactMarkdown>
 
-            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Claims Visualized:</Typography>
-            <GraphComponent nodes={graphNodes} edges={graphEdges}></GraphComponent>
+            <Typography variant="h5" sx={{ mb: 2}} color='secondary'>Claims Visualized:</Typography>
+            <GraphComponent nodes={graphNodes} edges={graphEdges} patentid={patentid as string}></GraphComponent>
           </Box>
       </Container>
     

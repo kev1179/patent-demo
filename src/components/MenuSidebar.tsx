@@ -159,7 +159,10 @@ const MenuSidebar = () => {
           sx={{ width: 250 }}
           role="presentation"
         >
-          {/* Search Bar */}
+          <Box sx={{display: 'flex' ,justifyContent: 'center', mt: 2, fontWeight: 'bold'}} color='secondary.main'>
+            Recent search results
+          </Box>
+          {/* Search Bar
           <Box sx={{ p: 2 }}>
             <SearchBar>
               <SearchIconWrapper>
@@ -172,10 +175,10 @@ const MenuSidebar = () => {
             </SearchBar>
           </Box>
           
-          <Divider />
+          <Divider /> */}
           
           {/* Sort Options */}
-          <Box sx={{ p: 2 }}>
+          {/* <Box sx={{ p: 2 }}>
             <Box
               sx={{ 
                 display: 'flex', 
@@ -198,9 +201,9 @@ const MenuSidebar = () => {
               <MenuItem onClick={() => handleSortOptionSelect('Oldest')}>Oldest</MenuItem>
               <MenuItem onClick={() => handleSortOptionSelect('Name')}>Name</MenuItem>
             </Menu>
-          </Box>
+          </Box> */}
           
-          <Divider />
+          {/* <Divider /> */}
           
           {/* Search Results */}
           <List>

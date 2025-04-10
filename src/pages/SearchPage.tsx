@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
   CircularProgress,
+  Link,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import GraphComponent from '../components/GraphComponent';
@@ -20,6 +21,7 @@ const SearchPage = () => {
   const [graphNodes, setGraphNodes] = useState<any>(null);
   const [graphEdges, setGraphEdges] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [patentid, setPatentid] = useState('');
 
   const cleanPatentCode = (patentCode: string) => {
 
@@ -45,6 +47,7 @@ const SearchPage = () => {
     setLoading(true);
     try {
       let cleanedPatentCode = cleanPatentCode(searchTerm);
+      setPatentid(cleanedPatentCode);
 
       const summaryResponse = await axios.get(`/api/patents/getSummary/${cleanedPatentCode}`);
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${cleanedPatentCode}`);
@@ -172,12 +175,16 @@ const SearchPage = () => {
 
         {result && (
           <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
+
+            <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">
+              <Typography variant='h4' textAlign={'center'} color='primary'>{patentid}</Typography>
+            </Link>
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
-            {/* <Typography variant="body1" sx={{ color: 'white' }}>{result.summary || result.error}</Typography> */}
+            
             <ReactMarkdown>{result.summary}</ReactMarkdown>
 
             <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Claims Visualized:</Typography>
-            <GraphComponent nodes={graphNodes} edges={graphEdges}></GraphComponent>
+            <GraphComponent nodes={graphNodes} edges={graphEdges} patentid={patentid}></GraphComponent>
           </Box>
         )}
       </Container>

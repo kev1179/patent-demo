@@ -78,7 +78,7 @@ const SearchNavBar = () => {
       >
         <Typography>{username}</Typography>
 
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
             <ListItemIcon sx={{ color: '#FFFFFF' }}>
                 <PersonIcon />
             </ListItemIcon>
@@ -90,7 +90,7 @@ const SearchNavBar = () => {
                 <SettingsIcon />
             </ListItemIcon>
             Settings
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem onClick={handleLogout}>
             <ListItemIcon sx={{ color: 'red' }}>
