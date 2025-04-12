@@ -7,17 +7,16 @@ import {
   TextField,
   Typography,
   CircularProgress,
-  Link,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import GraphComponent from '../components/GraphComponent';
 import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
 import SearchNavBar from '../components/SearchNavBar';
+import Results from '../components/Results';
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState<{summary: string}>();
+  // const [definitions, setDefinitions] = useState('');
   const [graphNodes, setGraphNodes] = useState<any>(null);
   const [graphEdges, setGraphEdges] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -49,9 +48,11 @@ const SearchPage = () => {
       let cleanedPatentCode = cleanPatentCode(searchTerm);
       setPatentid(cleanedPatentCode);
 
+      // const definitionsResponse = await axios.get(`/api/patents/getDefinitions/${cleanedPatentCode}`);
       const summaryResponse = await axios.get(`/api/patents/getSummary/${cleanedPatentCode}`);
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${cleanedPatentCode}`);
 
+      // setDefinitions(definitionsResponse.data.definitions);
       setResult(summaryResponse.data);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
@@ -174,18 +175,7 @@ const SearchPage = () => {
         }
 
         {result && (
-          <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
-
-            <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">
-              <Typography variant='h4' textAlign={'center'} color='primary'>{patentid}</Typography>
-            </Link>
-            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Search Result:</Typography>
-            
-            <ReactMarkdown>{result.summary}</ReactMarkdown>
-
-            <Typography variant="h5" sx={{ mb: 2, color: '#4F83CC' }}>Claims Visualized:</Typography>
-            <GraphComponent nodes={graphNodes} edges={graphEdges} patentid={patentid}></GraphComponent>
-          </Box>
+          <Results patentid={patentid} summary={result.summary} graphNodes={graphNodes} graphEdges={graphEdges}/>
         )}
       </Container>
     

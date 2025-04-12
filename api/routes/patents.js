@@ -174,6 +174,42 @@ router.get("/getSummary", isAuthenticated, async (req, res) => {
     }
 });
 
+router.get('/getDefinitions/:patentId', isAuthenticated, async (req, res) => {
+    const { patentId } = req.params;
+    const url = `https://patents.google.com/patent/${patentId}`;
+    
+    try {
+        const response = await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+        const $ = cheerio.load(response.data);
+
+        let description = $('.claims').text().trim();
+        if (!description) {
+            description = $('section.abstract').text().trim(); // Fallback to abstract if no description found
+        }
+        
+        if (!description) {
+            return res.status(404).json({ error: 'Patent description not found' });
+        }
+
+        optimizedSummary = optimizeSummary(description);
+
+        // Send the summary to OpenAI API for processing
+        const aiResponse = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [{ role: "system", content: "Give definitions for the most technical terms in the following text:" },
+                       { role: "user", content: optimizedSummary }],
+            max_tokens: 1000
+        });
+        
+        const aiSummary = aiResponse.choices[0].message.content;
+
+        res.json({ definitions: aiSummary });
+
+    } catch (error) {
+        console.error('Error fetching patent:', error.message);
+        res.status(500).json({ error: 'Failed to fetch patent data' });
+    }
+});
 
 router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
     const { patentId } = req.params;
@@ -193,7 +229,6 @@ router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
         }
 
         optimizedSummary = optimizeSummary(description);
-        console.log(optimizedSummary)
 
         // Send the summary to OpenAI API for processing
         const aiResponse = await openai.chat.completions.create({

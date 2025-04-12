@@ -2,16 +2,11 @@ import { useEffect, useState } from 'react';
 import { 
   Box,
   Container,
-  IconButton,
-  Link,
-  Typography,
 } from '@mui/material';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import GraphComponent from '../components/GraphComponent';
 import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
 import SearchNavBar from '../components/SearchNavBar';
 import { useParams } from 'react-router-dom';
+import Results from '../components/Results';
 
 const SearchResults = () => {
   const {patentid, timestamp} = useParams();
@@ -62,7 +57,7 @@ const SearchResults = () => {
           py: 8
         }}
       >
-          <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, justifyContent: 'center'}}>
+          {/* <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, justifyContent: 'center'}}>
             <Link href="/search">
               <IconButton color='primary' aria-label='Backspace icon'>
                 <KeyboardBackspaceIcon/>
@@ -78,7 +73,9 @@ const SearchResults = () => {
 
             <Typography variant="h5" sx={{ mb: 2}} color='secondary'>Claims Visualized:</Typography>
             <GraphComponent nodes={graphNodes} edges={graphEdges} patentid={patentid as string}></GraphComponent>
-          </Box>
+          </Box> */}
+
+          <Results patentid={patentid as string} summary={result} graphNodes={graphNodes} graphEdges={graphEdges}/>
       </Container>
     
     </Box>
