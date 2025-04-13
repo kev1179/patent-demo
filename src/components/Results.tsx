@@ -2,6 +2,7 @@ import { Box, IconButton, Link, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import GraphComponent from "./GraphComponent";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 type ResultsProps = {
     patentid: string;
@@ -15,7 +16,7 @@ const Results: React.FC<ResultsProps> = ({patentid, summary, graphNodes, graphEd
     return(
       
         <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
-                      <Link href="/search">
+                      <Link component={ReactRouterLink} to="/search">
               <IconButton color='primary' aria-label='Backspace icon'>
                 <KeyboardBackspaceIcon/>
               </IconButton>

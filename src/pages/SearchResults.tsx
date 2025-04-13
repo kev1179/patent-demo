@@ -31,7 +31,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     getResult();
-}, []);
+}, [patentid]);
 
   return (
     <Box
@@ -57,24 +57,6 @@ const SearchResults = () => {
           py: 8
         }}
       >
-          {/* <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, justifyContent: 'center'}}>
-            <Link href="/search">
-              <IconButton color='primary' aria-label='Backspace icon'>
-                <KeyboardBackspaceIcon/>
-              </IconButton>
-            </Link>
-
-            <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">
-              <Typography variant='h4' textAlign={'center'} color='primary'>{patentid}</Typography>
-            </Link>
-
-            <Typography variant="h5" sx={{ mb: 2}} color='secondary'>Search Result:</Typography>
-            <ReactMarkdown>{result}</ReactMarkdown>
-
-            <Typography variant="h5" sx={{ mb: 2}} color='secondary'>Claims Visualized:</Typography>
-            <GraphComponent nodes={graphNodes} edges={graphEdges} patentid={patentid as string}></GraphComponent>
-          </Box> */}
-
           <Results patentid={patentid as string} summary={result} graphNodes={graphNodes} graphEdges={graphEdges}/>
       </Container>
     

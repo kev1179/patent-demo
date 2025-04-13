@@ -5,21 +5,20 @@ import {
   IconButton,
   // InputBase,
   List,
-  ListItem,
   ListItemText,
   // Menu,
   // MenuItem,
   // Typography,
   // Divider,
+  Link
 } from '@mui/material';
 import {
   Menu as MenuIcon,
   // Search as SearchIcon,
   // ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 // Styled component for the search bar
 // const SearchBar = styled('div')(({ theme }) => ({
@@ -57,18 +56,7 @@ import { useNavigate } from 'react-router-dom';
 //   },
 // }));
 
-// Styled component for search results
-const SearchResultItem = styled(ListItem)(({ theme }) => ({
-  textAlign: 'center',
-  padding: theme.spacing(1, 2),
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-    cursor: 'pointer',
-  },
-}));
-
 const MenuSidebar = () => {
-  const navigate = useNavigate();
   // State for drawer open/close
   const [drawerOpen, setDrawerOpen] = useState(false);
   
@@ -101,15 +89,6 @@ const MenuSidebar = () => {
   //   setSortOption(option);
   //   handleSortMenuClose();
   // };
-  
-  // Handler for search result click
-  const handleResultClick = (result: string, index: any) => {
-    
-    let patentid = result;
-    let timestamp = timestamps[index];
-    navigate(`/searchResults/${patentid}/${timestamp}`);
-    window.location.reload();
-  };
 
   const getRecentSearches = async () => {
     try {
@@ -208,9 +187,12 @@ const MenuSidebar = () => {
           {/* Search Results */}
           <List>
             {results.map((result, index) => (
-              <SearchResultItem key={index} onClick={() => handleResultClick(result, index)}>
-                <ListItemText primary={result} />
-              </SearchResultItem>
+
+              <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                <Link component={ReactRouterLink} to={`/searchResults/${result}/${timestamps[index]}`} underline='hover' gutterBottom>
+                  <ListItemText primary={result} sx={{color: 'white'}}/>
+                </Link>
+              </Box>
             ))}
           </List>
         </Box>

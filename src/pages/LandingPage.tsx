@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WaitList from '../components/WaitList';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
@@ -23,8 +24,8 @@ const LandingPage = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             SmartPatents &#129504;
           </Typography>
-          <Link href="/login"><Button variant='contained'>Login</Button></Link>
-          <Link href="/login"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
+          <Link component={ReactRouterLink} to="/login"><Button variant='contained'>Login</Button></Link>
+          <Link component={ReactRouterLink} to="/login"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
         </Toolbar>
 
       {/* Hero Section */}
