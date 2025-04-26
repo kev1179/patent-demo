@@ -25,7 +25,7 @@ const LandingPage = () => {
             SmartPatents &#129504;
           </Typography>
           <Link component={ReactRouterLink} to="/login"><Button variant='contained'>Login</Button></Link>
-          <Link component={ReactRouterLink} to="/login"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
+          <Link component={ReactRouterLink} to="/signup"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
         </Toolbar>
 
       {/* Hero Section */}

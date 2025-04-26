@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import MainLayout from './MainLayout';
 import PrivateRoute from './components/PrivateRoute';
 import SearchResults from './pages/SearchResults';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
           <Route path="/login" element={<LoginPage/>}></Route>
+          <Route path="/signup" element={<SignupPage/>}></Route>
         </Route>
       </Routes>
     </Router>
