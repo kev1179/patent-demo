@@ -7,11 +7,17 @@ const passport = require("passport");
 const patentsRoutes = require("./routes/patents");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
+const userRoutes = require("./routes/users");
 
 if(process.env.NODE_ENV !== 'production')
     dotenv.config();
 
 const app = express();
+
+// ***** WEBHOOK ROUTES *******
+app.use("/users", userRoutes);
+
+
 app.use(express.json());
 
 
@@ -54,7 +60,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/patents", patentsRoutes);
-app.use("/auth", authRoutes);
+// app.use("/auth", authRoutes);
 app.use("/email", emailRoutes);
 
 const PORT = process.env.PORT || 5000;

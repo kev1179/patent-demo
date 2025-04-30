@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `users` (
-    `userid` BIGINT NOT NULL,
+    `userid` VARCHAR(255) NOT NULL,
     `username` VARCHAR(45) NOT NULL,
     `date_created` BIGINT NOT NULL,
-    `hashed_password` BLOB NOT NULL,
-    `salt` BLOB NOT NULL,
+    -- `hashed_password` BLOB NOT NULL,
+    -- `salt` BLOB NOT NULL,
     PRIMARY KEY (`userid`)
 );
 
@@ -14,18 +14,8 @@ CREATE TABLE IF NOT EXISTS `user_types` (
     UNIQUE (`name`)
 );
 
-CREATE TABLE IF NOT EXISTS `user_info` (
-    `userid` BIGINT NOT NULL,
-    `email` VARCHAR(320) NOT NULL,
-    `phone_number` VARCHAR(15) NOT NULL,
-    `type_id` BIGINT NOT NULL,
-    PRIMARY KEY (`userid`),
-    FOREIGN KEY (`userid`) REFERENCES `users` (`userid`),
-    FOREIGN KEY (`type_id`) REFERENCES `user_types` (`type_id`)
-);
-
 CREATE TABLE IF NOT EXISTS `searches` (
-    `userid` BIGINT NOT NULL,
+    `userid` VARCHAR(255) NOT NULL,
     `timestamp` BIGINT NOT NULL,
     `response` TEXT NULL,
     `patentid` VARCHAR(45) NULL DEFAULT NULL,
@@ -36,13 +26,6 @@ CREATE TABLE IF NOT EXISTS `searches` (
 CREATE TABLE IF NOT EXISTS `demo_waitlist` (
     `email` VARCHAR(320) NOT NULL,
     PRIMARY KEY (`email`)
-);
-
-CREATE TABLE IF NOT EXISTS `user_preferences` (
-    `userid` BIGINT NOT NULL,
-    `darkmode` TINYINT NOT NULL,
-    PRIMARY KEY (`userid`),
-    FOREIGN KEY (`userid`) REFERENCES `users` (`userid`)
 );
 
 INSERT INTO user_types (name)

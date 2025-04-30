@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const { OpenAI } = require("openai");
+const { requireAuth } = require('@clerk/express');
 
 const router = express.Router();
 
@@ -20,13 +21,6 @@ const pool = mysql.createPool
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 }).promise();
-
-const isAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.status(401).json({ error: 'Unauthorized' });
-  };
 
 // Initialize OpenAI client
 const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
@@ -118,7 +112,7 @@ function getParentClaim(claimText)
     return parent;
 }
 
-router.get("/getSummary", isAuthenticated, async (req, res) => {
+router.get("/getSummary", requireAuth(), async (req, res) => {
     try {
         const patentId = req.query.patent_id;
         if (!patentId) {
@@ -174,7 +168,7 @@ router.get("/getSummary", isAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/getDefinitions/:patentId', isAuthenticated, async (req, res) => {
+router.get('/getDefinitions/:patentId', requireAuth(), async (req, res) => {
     const { patentId } = req.params;
     const url = `https://patents.google.com/patent/${patentId}`;
     
@@ -211,7 +205,7 @@ router.get('/getDefinitions/:patentId', isAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
+router.get('/getSummary/:patentId', requireAuth(), async (req, res) => {
     const { patentId } = req.params;
     const url = `https://patents.google.com/patent/${patentId}`;
     
@@ -248,7 +242,7 @@ router.get('/getSummary/:patentId', isAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
+router.get('/getClaimGraph/:patentId', requireAuth(), async (req, res) => {
     const { patentId } = req.params;
     const url = `https://patents.google.com/patent/${patentId}`;
     
@@ -306,10 +300,10 @@ router.get('/getClaimGraph/:patentId', isAuthenticated, async (req, res) => {
     }
 });
 
-router.post('/saveResult', isAuthenticated, async (req, res) => {
+router.post('/saveResult', requireAuth(), async (req, res) => {
   try {
 
-    let userid = req.user.id;
+    let userid = req.auth.userId;
     const timestamp = new Date().getTime();
     let response = req.body.response;
     let patentid = req.body.patentid;
@@ -330,10 +324,10 @@ router.post('/saveResult', isAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
+router.get('/getRecentSearches', requireAuth(), async (req, res) => {
   try {
 
-    let userid = req.user.id;
+    let userid = req.auth.userId;
 
     const [rows] = await pool.query('select patentid, timestamp from searches where userid = ? order by timestamp desc', [
       userid
@@ -348,10 +342,10 @@ router.get('/getRecentSearches', isAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/getSearch/:timestamp', isAuthenticated, async (req, res) => {
+router.get('/getSearch/:timestamp', requireAuth(), async (req, res) => {
   try {
 
-    let userid = req.user.id;
+    let userid = req.auth.userId;
     let { timestamp } = req.params;
     
     const [rows] = await pool.query('select response from searches where userid = ? and timestamp = ?', [

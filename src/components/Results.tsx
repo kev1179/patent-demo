@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import GraphComponent from "./GraphComponent";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 type ResultsProps = {
     patentid: string;
@@ -13,14 +14,19 @@ type ResultsProps = {
 
 const Results: React.FC<ResultsProps> = ({patentid, summary, graphNodes, graphEdges}) =>
 {
+    const location = useLocation();
+
     return(
       
         <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
+
+          { location.pathname !== "/search" &&
                       <Link component={ReactRouterLink} to="/search">
               <IconButton color='primary' aria-label='Backspace icon'>
                 <KeyboardBackspaceIcon/>
               </IconButton>
             </Link>
+          }
 
         <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">
           <Typography variant='h4' textAlign={'center'} color='primary'>{patentid}</Typography>

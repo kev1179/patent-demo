@@ -12,8 +12,8 @@ COPY ./package*.json ./
 RUN npm install
 
 # Copying all the files in our project
+COPY .env ./
 COPY . .
-
 # Building our application
 RUN npm run build
 
