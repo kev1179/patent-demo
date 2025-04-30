@@ -4,28 +4,41 @@ import {
   Button,
   Container,
   Box,
-  Card,
-  CardContent,
-  CardMedia,
   Link,
   Accordion,
   AccordionSummary,
   AccordionDetails
 } from '@mui/material';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import WaitList from '../components/WaitList';
+import Logo from "../assets/logo_v1.04.png";
+
 import { Link as ReactRouterLink } from 'react-router-dom';
+import FeatureStepper from '../components/FeatureStepper';
 
 const LandingPage = () => {
   return (
     <Container maxWidth= "xl" sx={{ flexGrow: 1, background: "radial-gradient(circle, rgba(0, 150, 255, 0.6) 0%, rgba(0, 0, 0, 0) 70%)"}}>
       {/* Navigation Bar */}
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             SmartPatents &#129504;
-          </Typography>
+          </Typography> */}
+          <Box sx={{flexGrow: 1 }}> 
+          <img src={Logo} height="64" width="256"></img>
+          </Box>
           <Link component={ReactRouterLink} to="/login"><Button variant='contained'>Login</Button></Link>
-          <Link component={ReactRouterLink} to="/signup"><Button color="inherit" variant="outlined" sx={{ ml: 2 }}>Sign Up</Button></Link>
+          <Link component={ReactRouterLink} to="/signup">
+            <Button 
+              color="inherit" 
+              variant="outlined" 
+              sx={{
+                ml: 2,
+                whiteSpace: 'nowrap',
+                maxWidth: { xs: '80px', sm: 'auto' }, // optional: ensures enough space on small screens
+              }}>
+              Sign Up
+            </Button>
+          </Link>
         </Toolbar>
 
       {/* Hero Section */}
@@ -38,93 +51,29 @@ const LandingPage = () => {
       >
         <Container maxWidth="md">
           <Typography variant="h2" component="h1" gutterBottom>
-            Research Patents 10x Faster
+            Innovation, productivity and research efficiency 10X faster
           </Typography>
+
           <Typography variant="h5" color="text.secondary" gutterBottom>
-            SmartPatents uses cutting-edge AI to revolutionize how you search, analyze, and understand patent information.
+            SmartPatents advanced solutions offers high level intelligence to accelerate your scientific research and workflows by transforming the way you search, analyze and understand patents.
           </Typography>
 
-          <Typography variant='h6' color="text.secondary" sx={{mt: 4}}>We're accepting applications for early adopters to try out SmartPatents.</Typography>
-
-          <Box sx={{ mt: 4 }}>
-            <WaitList/>
-          </Box>
         </Container>
       </Box>
 
-      <Box sx={{ textAlign: "center", p: 4 , mt: 12}} >
+      <Box sx={{ textAlign: "center", p: 4}} >
       <Typography variant="h4" gutterBottom>
         Product Features
       </Typography>
 
       <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 3, mt: 2 }}>
         
-        {/* Feature 1 */}
-        <Card sx={{ width: 300, boxShadow: 3, "&:hover": 
-        {
-            transform: "scale(1.05)",
-            boxShadow: 6,
-            cursor: 'pointer'
-          },}}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Patent Summaries
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              SmartPatents features an AI tool that will provide a summary tailored to your needs. SmartPatents is specifically designed for research scientists
-              in STEM fields. Our summaries go into far more detail than generic AI summaries. All you have to do is copy and paste the code and SmartPatents takes
-              care of the rest.
-            </Typography>
-          </CardContent>
-
-        </Card>
-
-        {/* Feature 2 */}
-        <Card sx={{ width: 300, boxShadow: 3 , "&:hover": 
-        {
-            transform: "scale(1.05)",
-            boxShadow: 6,
-            cursor: 'pointer'
-          }}}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Claim Visualization
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              We provide a graph that helps you keep track of which claims depend on one another.
-            </Typography>
-          </CardContent>
-          <CardMedia
-            component="img"
-            height="140"
-            image="dependency_graph.png"
-            alt="Feature 2 Image"
-          />
-        </Card>
-
-        {/* Feature 3 */}
-        <Card sx={{ width: 300, boxShadow: 3 , "&:hover": 
-        {
-            transform: "scale(1.05)",
-            boxShadow: 6,
-            cursor: 'pointer'
-          }}}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Examples Comparison
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              SmartPatents uses AI to analyze and compare examples within a patent.
-              We provide you with a table that neatly organizes all of the example sections
-              within the patents, saving you time and energy.
-            </Typography>
-          </CardContent>
-        </Card>
+        <FeatureStepper/>
 
       </Box>
     </Box>
 
-    <Box sx={{ width: "100%",  margin: "auto", padding: 2, mt: 12, borderRadius: '5px'}} >
+    <Box sx={{ width: "100%",  margin: "auto", padding: 2, borderRadius: '5px'}} >
       <Typography variant="h5" gutterBottom textAlign={"center"}>
         FAQ's
       </Typography>
