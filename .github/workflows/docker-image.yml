@@ -16,11 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
             
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo "${{ secrets.ENV_FILE }}" > prod.env
-          cat prod.env
+      # - name: 'Create env file'
+      #   run: |
+      #     touch .env
+      #     echo "${{ secrets.ENV_FILE }}" > prod.env
+      #     cat prod.env
 
       - name: Set up SSH
         run: |
@@ -46,6 +46,8 @@ jobs:
 
       - name: Build, push, and run Docker image
         run: |
+          touch .env
+          echo ${{ secrets.CLERK_PUBLIC_KEY }} > .env
           docker compose build
           docker save -o frontend_image.tar frontend_image
           docker save -o backend_image.tar backend_image
