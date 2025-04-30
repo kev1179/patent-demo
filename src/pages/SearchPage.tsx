@@ -33,7 +33,7 @@ const SearchPage = () => {
         return `${countryCode}${serialNumber}${kindCode}`;
       }
     
-      return "";
+      return patentCode;
     }
 
     let cleanedCode:string = patentCode.replace(/[^a-zA-Z0-9]/g, '');
