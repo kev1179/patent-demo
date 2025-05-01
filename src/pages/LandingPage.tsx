@@ -7,13 +7,14 @@ import {
   Link,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Card,
+  CardContent,
 } from '@mui/material';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Logo from "../assets/logo_v1.04.png";
 
 import { Link as ReactRouterLink } from 'react-router-dom';
-import FeatureStepper from '../components/FeatureStepper';
 
 const LandingPage = () => {
   return (
@@ -61,17 +62,111 @@ const LandingPage = () => {
         </Container>
       </Box>
 
-      <Box sx={{ textAlign: "center", p: 4}} >
+
+      <Box sx={{ textAlign: "center", p: 4 }} >
+ 
+
       <Typography variant="h4" gutterBottom>
+ 
+
         Product Features
+ 
+
       </Typography>
+ 
 
-      <Box sx={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 3, mt: 2 }}>
-        
-        <FeatureStepper/>
 
+ 
+
+      <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flexWrap: "wrap", gap: 3, mt: 2, alignItems: 'center'}}>
+        {/* Feature 1 */}
+        <Card sx={{ maxWidth: 800, boxShadow: 3, "&:hover": 
+          {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          },}}>
+          <CardContent>
+
+            <Typography variant="h6" gutterBottom>
+              Patent Summaries
+            </Typography>
+ 
+            <Typography variant="body2" color="text.secondary">
+            SmartPatents provides AI-driven patent summaries that go beyond generic solutions. 
+            Our technology is specifically designed to help your scientists quickly grasp the scientific content of any patent—instantly and effortlessly. 
+            By eliminating hours of manual review, SmartPatents saves your team valuable time and energy, boosting patent-driven ideation and research efficiency across your organization. 
+            Simply copy and paste the patent number, and SmartPatents does the rest.
+            </Typography>
+          </CardContent>
+        </Card>
+
+        {/* Feature 2 */}
+        <Card sx={{ maxWidth: 800, boxShadow: 3 , "&:hover": 
+          {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          }}}>
+
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Claim Visualization
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary">
+            SmartPatents goes beyond generic AI solutions with custom-designed tools that help your scientists instantly understand the scientific content of any patent—eliminating hours of manual review. 
+            This saves valuable time and energy, enhances patent-driven ideation, and boosts research efficiency across your organization. Simply copy and paste the patent number, and SmartPatents handles the rest.
+            Our innovative claims visualization feature intelligently categorizes a patent's claims, allowing your scientists to focus on the most critical ones first. This smart tool is especially effective when screening large volumes of patents in limited time, significantly accelerating your patent evaluation and application processes.
+            </Typography>
+
+            <Box
+              component="img"
+              src="graph.png"
+              alt="Graph"
+              sx={{
+                mt: 2,
+                width: { xs: 240, sm: 'auto' },
+                height: { xs: 240, sm: 'auto' },
+                maxWidth: '100%', // prevent overflow on small screens
+                objectFit: 'contain', // keeps aspect ratio nicely
+              }}
+            />
+          
+          </CardContent>
+
+          {/* <CardMedia
+            component="img"
+            height="140"
+            image="dependency_graph.png"
+            alt="Feature 2 Image"
+          /> */}
+
+        </Card>
+
+        {/* Feature 3 */}
+        <Card sx={{ maxWidth: 800, boxShadow: 3 , "&:hover": 
+          {
+            transform: "scale(1.05)",
+            boxShadow: 6,
+            cursor: 'pointer'
+          }}}>
+
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Examples Comparison
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary">
+              SmartPatents uses AI to analyze and compare examples within a patent.
+              We provide you with a table that neatly organizes all of the example sections
+              within the patents, saving you time and energy.
+            </Typography>
+          </CardContent>
+        </Card>
       </Box>
     </Box>
+
 
     <Box sx={{ width: "100%",  margin: "auto", padding: 2, borderRadius: '5px'}} >
       <Typography variant="h5" gutterBottom textAlign={"center"}>
