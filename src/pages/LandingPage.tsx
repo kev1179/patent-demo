@@ -93,10 +93,10 @@ const LandingPage = () => {
             </Typography>
  
             <Typography variant="body2" color="text.secondary">
-            SmartPatents provides AI-driven patent summaries that go beyond generic solutions. 
-            Our technology is specifically designed to help your scientists quickly grasp the scientific content of any patent—instantly and effortlessly. 
-            By eliminating hours of manual review, SmartPatents saves your team valuable time and energy, boosting patent-driven ideation and research efficiency across your organization. 
-            Simply copy and paste the patent number, and SmartPatents does the rest.
+            SmartPatents offers unique AI-driven patent summaries that go beyond generic AI solutions and are custom-designed to help your scientists understand 
+            the scientific content of any patent immediately, without spending hours. This saves them significant research time and energy, enhancing patent-driven ideation 
+            and research efficiency in your company. 
+            All you have to do is copy and paste the patent number, and SmartPatents takes care of the rest.
             </Typography>
           </CardContent>
         </Card>
@@ -115,9 +115,9 @@ const LandingPage = () => {
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
-            SmartPatents goes beyond generic AI solutions with custom-designed tools that help your scientists instantly understand the scientific content of any patent—eliminating hours of manual review. 
-            This saves valuable time and energy, enhances patent-driven ideation, and boosts research efficiency across your organization. Simply copy and paste the patent number, and SmartPatents handles the rest.
-            Our innovative claims visualization feature intelligently categorizes a patent's claims, allowing your scientists to focus on the most critical ones first. This smart tool is especially effective when screening large volumes of patents in limited time, significantly accelerating your patent evaluation and application processes.
+            SmartPatents' novel feature for claims visualization is an intelligent tool that categorizes claims in a patent, 
+            helping your scientists focus their attention on the most important claims first. This feature is especially useful when your scientists need to screen 
+            a large number of patents in a short amount of time, accelerating your patent application processes.
             </Typography>
 
             <Box
@@ -158,9 +158,10 @@ const LandingPage = () => {
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
-              SmartPatents uses AI to analyze and compare examples within a patent.
-              We provide you with a table that neatly organizes all of the example sections
-              within the patents, saving you time and energy.
+            SmartPatents introduces the Patent Science Decoder, a novel and interactive tool that brings intelligence to the way your 
+            scientists interact with coded information in patents. The Science Decoder intelligently delivers 
+            the information your scientists need while reading and writing patents—eliminating the need to switch between multiple search tools 
+            and scattered information sources.
             </Typography>
           </CardContent>
         </Card>
