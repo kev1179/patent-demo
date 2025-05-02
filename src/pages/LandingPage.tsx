@@ -154,7 +154,7 @@ const LandingPage = () => {
 
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Examples Comparison
+            Patent Science Decoder
             </Typography>
 
             <Typography variant="body2" color="text.secondary">
