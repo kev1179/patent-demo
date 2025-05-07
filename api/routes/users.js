@@ -26,6 +26,8 @@ router.post('/createUser', express.raw({ type: 'application/json' }), async (req
       ]);
     
     const { id } = evt.data
+    const eventType = evt.type
+    
     console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
     return res.send('Webhook received');
     
