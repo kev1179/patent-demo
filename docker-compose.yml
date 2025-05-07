@@ -11,6 +11,7 @@ services:
     env_file:
       - prod.env
     image: backend_image
+    restart: unless-stopped
 
   frontend:
     build:
@@ -22,3 +23,4 @@ services:
     depends_on:
       - backend
     image: frontend_image
+    restart: unless-stopped
