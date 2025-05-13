@@ -7,64 +7,29 @@ import {
   TextField,
   Typography,
   CircularProgress,
+  Alert,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import SearchNavBar from '../components/SearchNavBar';
-import Results from '../components/Results';
+import AISummaryDialog from '../components/AISummaryDialog';
 
-const SearchPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [result, setResult] = useState<{summary: string}>();
-  // const [definitions, setDefinitions] = useState('');
-  const [graphNodes, setGraphNodes] = useState<any>(null);
-  const [graphEdges, setGraphEdges] = useState<any>(null);
+const SmartSearch = () => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<[{id:string, description:string}]>();
   const [loading, setLoading] = useState(false);
-  const [patentid, setPatentid] = useState('');
-
-  const cleanPatentCode = (patentCode: string) => {
-
-    const stripLeadingZeros = (patentCode: string) => {
-      const regex = /^(\D{2})(0*)(\d+)(\w*)$/;
-      const match = patentCode.match(regex);
-    
-      if (match) {
-        const [, countryCode, , serialNumber, kindCode] = match;
-        return `${countryCode}${serialNumber}${kindCode}`;
-      }
-    
-      return patentCode;
-    }
-
-    let cleanedCode:string = patentCode.replace(/[^a-zA-Z0-9]/g, '');
-    cleanedCode = stripLeadingZeros(cleanedCode);
-    return cleanedCode;
-  }
 
   const handleSearch = async () => {
-    if (!searchTerm) return;
+    if (!query) return;
     setLoading(true);
     try {
-      let cleanedPatentCode = cleanPatentCode(searchTerm);
-      setPatentid(cleanedPatentCode);
 
-      // const definitionsResponse = await axios.get(`/api/patents/getDefinitions/${cleanedPatentCode}`);
-      const summaryResponse = await axios.get(`/api/patents/getSummary/${cleanedPatentCode}`);
-      const graphResponse = await axios.get(`/api/patents/getClaimGraph/${cleanedPatentCode}`);
+      const response = await axios.post('/api/patents/patentSearchQuery', {"query": query, "n_results": 10});
+      setResults(response.data.result);
 
-      // setDefinitions(definitionsResponse.data.definitions);
-      setResult(summaryResponse.data);
-      setGraphNodes(graphResponse.data.claimList);
-      setGraphEdges(graphResponse.data.edgeList);
-
-      const saveResult = await axios.post("/api/patents/saveResult", 
-        { response: summaryResponse.data.summary, patentid: cleanedPatentCode},
-        { withCredentials: true });
-      
-        console.log(saveResult.data.message);
     } catch (error) {
       console.log(error);
-      setResult({ summary: 'Failed to fetch patent data' });
+      setResults([{'id':  'Failure', 'description': 'Something went wrong.'}]);
     }
     setLoading(false);
   };
@@ -88,12 +53,12 @@ const SearchPage = () => {
           flexGrow: 1,
           display: 'flex', 
           flexDirection: 'column',
-          justifyContent: result ? 'flex-start' : 'center',
+          justifyContent: results ? 'flex-start' : 'center',
           alignItems: 'center',
           py: 8
         }}
       >
-        {!result && (
+        {!results && (
           <Typography
             variant="h2"
             component="h1"
@@ -111,13 +76,13 @@ const SearchPage = () => {
           </Typography>
         )}
 
-        <Box sx={{ width: '100%', maxWidth: 600, position: 'relative', mb: result ? 4 : 7 }}>
+        <Box sx={{ width: '100%', maxWidth: 600, position: 'relative', mb: results ? 4 : 7 }}>
           <TextField
+            aria-label='Search field'
             fullWidth
-            placeholder="Enter Patent Code... (EX: US20100202986A1)"
             variant="outlined"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -167,15 +132,32 @@ const SearchPage = () => {
           </Button>
         </Box>
 
+        
+        {!results &&
+          <Alert severity="info">
+            Our search engine currently consists of approximately 10,000 granted patents from 2024.
+            We are in the process of training our model on more patent data going back to the 1970's. 
+            This will be released shortly so stay tuned!
+          </Alert>
+        }
+
         {loading && 
         <>
           <CircularProgress sx={{ color: 'white', mt: 4 }} />
-          <Typography>Writing...</Typography>
+          <Typography>Searching...</Typography>
         </>
         }
 
-        {result && (
-          <Results patentid={patentid} summary={result.summary} graphNodes={graphNodes} graphEdges={graphEdges}/>
+        {results && (
+
+            // results.map((result) => (
+            //   <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
+            //     <Button variant='text' sx={{fontSize: 20}}>{result.id}</Button>
+            //     <Typography>{result.description}</Typography>
+            //   </Box>
+            // ))
+
+            <AISummaryDialog results={results}/>
         )}
       </Container>
     
@@ -183,4 +165,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default SmartSearch;

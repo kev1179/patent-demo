@@ -2,7 +2,7 @@ import { Box, IconButton, Link, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import GraphComponent from "./GraphComponent";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 type ResultsProps = {
@@ -15,17 +15,16 @@ type ResultsProps = {
 const Results: React.FC<ResultsProps> = ({patentid, summary, graphNodes, graphEdges}) =>
 {
     const location = useLocation();
+    const navigate = useNavigate();
 
     return(
       
         <Box sx={{ bgcolor: '#112240', p: 3, borderRadius: 2, width: '100%', maxWidth: 800, mt: 4, justifyContent: 'center'}}>
 
-          { location.pathname !== "/search" &&
-                      <Link component={ReactRouterLink} to="/search">
-              <IconButton color='primary' aria-label='Backspace icon'>
+          { (location.pathname !== "/summary" && location.pathname !== "/search") &&
+              <IconButton color='primary' aria-label='Backspace icon' onClick={() => navigate(-1)}>
                 <KeyboardBackspaceIcon/>
               </IconButton>
-            </Link>
           }
 
         <Link href = {`https://patents.google.com/patent/${patentid}`} target="_blank" rel="noopener">

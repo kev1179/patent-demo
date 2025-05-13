@@ -8,6 +8,7 @@ import MainLayout from './MainLayout';
 import PrivateRoute from './components/PrivateRoute';
 import SearchResults from './pages/SearchResults';
 import SignupPage from './pages/SignupPage';
+import SmartSearch from './pages/SmartSearch';
 
 function App() {
   return (
@@ -17,7 +18,10 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LandingPage/>} />
           <Route element={<PrivateRoute/>}>
-            <Route path="/search" element={<SearchPage />} />
+            <Route path="/search" element={<SmartSearch />} />
+          </Route>
+          <Route element={<PrivateRoute/>}>
+            <Route path="/summary" element={<SearchPage />} />
           </Route>
           <Route element={<PrivateRoute/>}>
             <Route path="/searchResults/:patentid/:timestamp/" element={<SearchResults />} />

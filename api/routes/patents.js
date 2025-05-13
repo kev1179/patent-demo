@@ -363,4 +363,43 @@ router.get('/getSearch/:timestamp', requireAuth(), async (req, res) => {
   }
 });
 
+// TODO: Add auth middleware after testing is complete.
+router.post('/patentSearchQuery', requireAuth(), async (req, res) => {
+    try {
+
+    //   let userid = req.auth.userId;
+    //   let { timestamp } = req.params;
+      
+    //   const [rows] = await pool.query('select response from searches where userid = ? and timestamp = ?', [
+    //     userid,
+    //     timestamp
+    //   ]);
+
+        let query = req.body.query;
+        let n_results = req.body.n_results | 5;
+
+        const response = await axios.post('http://localhost:8000/query', {"query": query, "n_results": n_results});
+
+        let patents = response.data.results[0];
+        let result = [];
+
+        for(let i = 0; i < patents.length; i++)
+        {
+            const url = `https://patents.google.com/patent/US${patents[i]}`;
+            const response = await axios.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+            const $ = cheerio.load(response.data);
+            let description = $('.abstract').text();
+
+            result.push({"id": `US${patents[i]}`, "description": description})
+        }
+
+        res.json({"result": result});
+    }
+  
+    catch(error)
+    {
+        res.json({errorMessage: error});
+    }
+});
+
 module.exports = router;
