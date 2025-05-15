@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: testing
         run:  |
+          cat ./src/pages/LandingPage.tsx
           cat ./src/pages/SmartSearch.tsx
           ls ./vector-db
 
