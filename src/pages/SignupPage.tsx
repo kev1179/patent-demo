@@ -166,7 +166,7 @@ const SignupPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <SignUp signInUrl="/login" fallbackRedirectUrl="/search"/>
+        <SignUp signInUrl="/login" fallbackRedirectUrl="/summary"/>
       </Box>
     </Container>
   );

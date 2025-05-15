@@ -26,7 +26,7 @@ const SearchNavBar = () => {
             indicatorColor="secondary"
             sx={{ ml: 2 }}
           >
-            <Tab label="Search Engine" value="/search" component={Link} to="/search" />
+            {/* <Tab label="Search Engine" value="/search" component={Link} to="/search" /> */}
             <Tab label="AI Summaries" value="/summary" component={Link} to="/summary" />
           </Tabs>
         </Box>
