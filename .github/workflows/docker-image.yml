@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Show current commit
-        run: git log -1 --stat
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
