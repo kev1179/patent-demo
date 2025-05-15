@@ -13,6 +13,21 @@ services:
     image: backend_image
     restart: unless-stopped
 
+  vector-db:
+    volumes:
+      - ./data:/app/data
+    build:
+      context: ./vector-db
+      dockerfile: Dockerfile
+    container_name: smartpatents-vector-db
+    ports:
+      - "8000:8000"
+    env_file:
+      - prod.env
+    image: vector_db_image
+    restart: unless-stopped
+
+
   frontend:
     build:
       context: ./

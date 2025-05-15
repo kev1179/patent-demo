@@ -375,10 +375,12 @@ router.post('/patentSearchQuery', requireAuth(), async (req, res) => {
     //     timestamp
     //   ]);
 
+        let url = process.env.NODE_ENV !== 'production' ? 'http://localhost:8000/query' : 'http://smartpatents-vector-db:8000/query';
+
         let query = req.body.query;
         let n_results = req.body.n_results | 5;
 
-        const response = await axios.post('http://localhost:8000/query', {"query": query, "n_results": n_results});
+        const response = await axios.post(url, {"query": query, "n_results": n_results});
 
         let patents = response.data.results[0];
         let result = [];

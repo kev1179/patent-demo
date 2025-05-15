@@ -17,7 +17,7 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
 
 app = FastAPI()
 
-client = chromadb.PersistentClient(path="Sample-DB")
+client = chromadb.PersistentClient(path="Patent-DB")
 collection = client.get_or_create_collection(name="my_collection", embedding_function=openai_ef)
 
 class QueryRequest(BaseModel):

@@ -26,6 +26,8 @@ dist-ssr
 #Large files
 __pycache__
 Sample-DB
+Patent-DB
+data
 
 #Sensitive Info
 *.env

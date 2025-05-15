@@ -109,7 +109,7 @@ const LoginPage = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <SignIn fallbackRedirectUrl="/summary" signUpUrl="/signup"/>
+        <SignIn fallbackRedirectUrl="/search" signUpUrl="/signup"/>
       </Box>
     </Container>
   );
