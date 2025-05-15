@@ -15,8 +15,8 @@ jobs:
     steps:
       - name: testing
         run:  |
-        cat ./src/pages/SmartSearch.tsx
-        ls ./vector-db
+          cat ./src/pages/SmartSearch.tsx
+          ls ./vector-db
 
       - name: Checkout repository
         uses: actions/checkout@v4
