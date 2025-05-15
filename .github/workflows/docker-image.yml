@@ -13,12 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: testing
-        run:  |
-          cat ./src/pages/LandingPage.tsx
-          cat ./src/pages/SmartSearch.tsx
-          ls ./vector-db
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -29,6 +23,12 @@ jobs:
       #     touch .env
       #     echo "${{ secrets.ENV_FILE }}" > prod.env
       #     cat prod.env
+
+      - name: testing
+        run:  |
+          cat ./src/pages/LandingPage.tsx
+          cat ./src/pages/SmartSearch.tsx
+          ls ./vector-db
 
       - name: Set up SSH
         run: |
