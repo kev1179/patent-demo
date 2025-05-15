@@ -14,6 +14,7 @@ import SearchNavBar from '../components/SearchNavBar';
 import Results from '../components/Results';
 
 const SearchPage = () => {
+  // For github actions purposes.
   const [searchTerm, setSearchTerm] = useState('');
   const [result, setResult] = useState<{summary: string}>();
   // const [definitions, setDefinitions] = useState('');
