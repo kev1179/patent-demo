@@ -8,7 +8,7 @@ import chromadb.utils.embedding_functions as embedding_functions
 
 dbPath = './data/Patent-DB'
 
-if os.getenv('NODE_ENV') != "PRODUCTION":
+if os.getenv('NODE_ENV') != "production":
     load_dotenv()
     dbPath = 'Patent-DB'
 
