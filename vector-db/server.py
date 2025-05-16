@@ -24,6 +24,7 @@ class QueryRequest(BaseModel):
     query: str
     n_results: int = 5
 
+print(collection.count())
 
 @app.post("/query")
 async def query_db(request: QueryRequest):
@@ -32,6 +33,8 @@ async def query_db(request: QueryRequest):
             query_texts=[request.query],
             n_results=request.n_results
         )
+
+        print(results)
         return {"results": results['ids']}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
