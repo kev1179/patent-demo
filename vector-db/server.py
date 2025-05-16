@@ -6,8 +6,11 @@ from pydantic import BaseModel
 import chromadb
 import chromadb.utils.embedding_functions as embedding_functions
 
+dbPath = 'Patent-DB'
+
 if os.getenv('NODE_ENV') != "PRODUCTION":
     load_dotenv()
+    dbPath = './data/Patent-DB'
 
 OPENAI_KEY = os.getenv('OPENAI_KEY')
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(
@@ -17,7 +20,7 @@ openai_ef = embedding_functions.OpenAIEmbeddingFunction(
 
 app = FastAPI()
 
-client = chromadb.PersistentClient(path="Patent-DB")
+client = chromadb.PersistentClient(path=dbPath)
 collection = client.get_or_create_collection(name="my_collection", embedding_function=openai_ef)
 
 class QueryRequest(BaseModel):

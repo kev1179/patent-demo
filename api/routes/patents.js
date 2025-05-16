@@ -383,7 +383,6 @@ router.post('/patentSearchQuery', requireAuth(), async (req, res) => {
         const response = await axios.post(url, {"query": query, "n_results": n_results});
 
         let patents = response.data.results[0];
-        console.log(response.data);
 
         let result = [];
 
