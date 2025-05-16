@@ -17,9 +17,11 @@ const SearchResults = () => {
   const getResult = async () => {
     try {
       const summaryResponse = await axios.get(`/api/patents/getSearch/${timestamp}`);
+
+      setResult(summaryResponse.data.searchResult.response);
+
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${patentid}`);
       
-      setResult(summaryResponse.data.searchResult.response);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
 

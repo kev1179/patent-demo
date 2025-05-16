@@ -28,9 +28,11 @@ const AISummaryDialog:React.FC<AISummaryProps> = ({ results }) => {
     try
     {
       const summaryResponse = await axios.get(`/api/patents/getSummary/${id}`);
+
+      setSummary(summaryResponse.data.summary);
+
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${id}`);
       
-      setSummary(summaryResponse.data.summary);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
 

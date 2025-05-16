@@ -6,11 +6,11 @@ from pydantic import BaseModel
 import chromadb
 import chromadb.utils.embedding_functions as embedding_functions
 
-dbPath = 'Patent-DB'
+dbPath = './data/Patent-DB'
 
 if os.getenv('NODE_ENV') != "PRODUCTION":
     load_dotenv()
-    dbPath = './data/Patent-DB'
+    dbPath = 'Patent-DB'
 
 OPENAI_KEY = os.getenv('OPENAI_KEY')
 openai_ef = embedding_functions.OpenAIEmbeddingFunction(

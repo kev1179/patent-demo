@@ -50,10 +50,12 @@ const SearchPage = () => {
 
       // const definitionsResponse = await axios.get(`/api/patents/getDefinitions/${cleanedPatentCode}`);
       const summaryResponse = await axios.get(`/api/patents/getSummary/${cleanedPatentCode}`);
+
+      setResult(summaryResponse.data);
+
       const graphResponse = await axios.get(`/api/patents/getClaimGraph/${cleanedPatentCode}`);
 
       // setDefinitions(definitionsResponse.data.definitions);
-      setResult(summaryResponse.data);
       setGraphNodes(graphResponse.data.claimList);
       setGraphEdges(graphResponse.data.edgeList);
 
